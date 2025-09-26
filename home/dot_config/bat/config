@@ -8,4 +8,4 @@
 --italic-text=always
 
 # Show file headers
---decorations=always
+--decorations=auto
