@@ -227,11 +227,11 @@
   // ================================================================
 
   // Theme and appearance
-  "workbench.colorTheme": "Ocean Low Tide",
-  "workbench.preferredLightColorTheme": "Material Theme Ocean",
-  "workbench.preferredDarkColorTheme": "Ocean Low Tide",
-  "workbench.preferredHighContrastColorTheme": "Material Theme Ocean High Contrast",
-  "workbench.preferredHighContrastLightColorTheme": "Material Theme Ocean High Contrast",
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.preferredLightColorTheme": "Catppuccin Latte",
+  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+  "workbench.preferredHighContrastColorTheme": "Catppuccin Mocha",
+  "workbench.preferredHighContrastLightColorTheme": "Catppuccin Latte",
   "workbench.iconTheme": "eq-material-theme-icons-ocean",
   "window.autoDetectColorScheme": true,
   "workbench.colorCustomizations": {
