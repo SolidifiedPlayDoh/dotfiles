@@ -108,7 +108,7 @@ The external base configuration provides:
 ### Built-in Keybindings
 - `prefix + e` - ~~Edit local config and reload~~ **Overridden**: Open Claude Code in dotfiles directory
 - `prefix + r` - Reload configuration
-- `prefix + Tab` - Toggle mouse mode
+- `prefix + m` - Toggle mouse mode
 - Many more - see gpakosz documentation
 
 ## Installation & Management
