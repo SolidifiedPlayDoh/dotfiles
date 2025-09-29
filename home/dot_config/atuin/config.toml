@@ -1,0 +1,30 @@
+## Atuin Configuration
+## Optimized for better up-arrow experience and less intrusive TUI
+
+## For up-arrow binding, use smaller but not tiny interface
+inline_height_shell_up_key_binding = 6
+
+## Enable enter to immediately execute (modern behavior)
+enter_accept = true
+
+## For up-arrow, use prefix search for more predictable behavior
+search_mode_shell_up_key_binding = "prefix"
+
+## Show preview but keep it short
+max_preview_height = 3
+
+## Enable command chaining after && or ||
+command_chaining = true
+
+## Use vim keybindings to match shell vim mode instead of emacs mode
+keymap_mode = "auto"
+keymap_cursor = { vim_insert = "steady-bar", vim_normal = "steady-block" }
+
+## Security - filter out secrets
+secrets_filter = true
+
+[keys]
+## Allow normal scroll behavior
+scroll_exits = true
+exit_past_line_start = true
+accept_past_line_end = true
