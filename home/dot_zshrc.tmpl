@@ -105,7 +105,7 @@ export ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # We'll handle rebinding for vim mode
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export ZSH_AUTOSUGGEST_HISTORY_IGNORE="?(#c50,)"  # Ignore commands > 50 chars
 export ZSH_AUTOSUGGEST_COMPLETION_IGNORE="* --help"  # Skip help completions
-export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # Catpuccin theme support - optimized for Ghostty + tmux
 if [[ "${TERM}" == "xterm-ghostty" ]] || [[ -n "${TMUX}" ]]; then
@@ -128,7 +128,6 @@ _zsh_autosuggest_bind_vim_mode() {
     # Insert mode bindings
     bindkey -M viins '^F' vi-forward-word  # Ctrl+F: accept word
     bindkey -M viins '^E' vi-end-of-line   # Ctrl+E: accept to end
-    bindkey -M viins '^I' autosuggest-accept  # Tab: accept full suggestion
     bindkey -M viins '^]' autosuggest-accept  # Ctrl+]: accept full
 
     # Visual mode support
