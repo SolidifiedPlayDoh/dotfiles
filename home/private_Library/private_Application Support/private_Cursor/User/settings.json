@@ -248,6 +248,7 @@
 
   // Window settings
   "window.zoomPerWindow": false,
+  "editor.cursorBlinking": "solid",
 
   // ================================================================
   // SEARCH & EXPLORER SETTINGS
