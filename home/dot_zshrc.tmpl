@@ -119,29 +119,6 @@ fi
 # Load plugin
 source {{ $zshAutoSuggestPath }}
 
-# Custom vim mode integration
-_zsh_autosuggest_bind_vim_mode() {
-    # Clear default bindings
-    bindkey -M viins '^[[C' forward-char  # Right arrow baseline
-    bindkey -M viins '^[[D' backward-char # Left arrow baseline
-
-    # Insert mode bindings
-    bindkey -M viins '^F' vi-forward-word  # Ctrl+F: accept word
-    bindkey -M viins '^E' vi-end-of-line   # Ctrl+E: accept to end
-    bindkey -M viins '^]' autosuggest-accept  # Ctrl+]: accept full
-
-    # Visual mode support
-    bindkey -M vicmd '^]' autosuggest-accept
-    bindkey -M visual '^]' autosuggest-accept
-
-    # Quick accepts in normal mode
-    bindkey -M vicmd 'L' vi-end-of-line
-    bindkey -M vicmd 'A' vi-add-eol       # A should accept and go to end
-}
-
-# Apply vim bindings after plugin loads
-_zsh_autosuggest_bind_vim_mode
-
 # Speed hack: only fetch suggestions for commands > 2 chars
 _zsh_autosuggest_should_fetch() {
     (( ${#BUFFER} > 2 ))
