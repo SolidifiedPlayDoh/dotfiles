@@ -169,6 +169,8 @@
   // LANGUAGE-SPECIFIC SETTINGS
   // ================================================================
 
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "svelte"],
+
   // Web Technologies (JavaScript/TypeScript/Svelte)
   "[svelte]": {
     "editor.tabSize": 4,
