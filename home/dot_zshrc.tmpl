@@ -1,3 +1,13 @@
+# LLM Agent Detection - MUST BE FIRST
+# Detect if running in an LLM agent context (Claude Code, Cursor, etc.)
+{{- if lookPath "envsense" }}
+if envsense check agent >/dev/null 2>&1; then
+  export LLM_AGENT_MODE=1
+  [[ -f "$XDG_CONFIG_HOME/zsh/llm.zsh" ]] && source "$XDG_CONFIG_HOME/zsh/llm.zsh"
+  return  # Skip all human-friendly configuration below
+fi
+{{- end }}
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -93,6 +103,9 @@ eval "$(atuin init zsh)"
 {{- $zshAutoSuggestPath := joinPath .chezmoi.homeDir ".config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" }}
 {{- if stat $zshAutoSuggestPath }}
 
+# Skip autosuggestions if in LLM agent mode
+if [[ -z "${SKIP_ZSH_AUTOSUGGESTIONS:-}" ]]; then
+
 # Speed-optimized zsh-autosuggestions loading
 # All checks done at template generation time by chezmoi
 
@@ -123,6 +136,8 @@ source {{ $zshAutoSuggestPath }}
 _zsh_autosuggest_should_fetch() {
     (( ${#BUFFER} > 2 ))
 }
+
+fi  # End skip autosuggestions check
 
 {{- end }}
 
@@ -274,6 +289,9 @@ function reload! {
 {{- $zshSyntaxHighlightPath := joinPath .chezmoi.homeDir ".config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" }}
 {{- if stat $zshSyntaxHighlightPath }}
 
+# Skip syntax highlighting if in LLM agent mode
+if [[ -z "${SKIP_ZSH_SYNTAX_HIGHLIGHTING:-}" ]]; then
+
 # ============================================================================
 # Zsh Syntax Highlighting - MUST BE LOADED LAST
 # ============================================================================
@@ -351,6 +369,8 @@ if [[ -n "$ZSH_HIGHLIGHT_VERSION" ]]; then
     # Note: vi-mode plugin already registers zle-keymap-select
     zle -N zle-line-init
 fi
+
+fi  # End skip syntax highlighting check
 
 {{- end }}
 
