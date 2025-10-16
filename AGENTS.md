@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code when working with this dotfiles repository.
 
 ## Overview
 
-This is a personal dotfiles repository that uses Chezmoi to manage configuration files across macOS, Linux, and containerized environments. The repository follows a pragmatic philosophy prioritizing stability, portability, and reliability over customization.
+Personal dotfiles managed by Chezmoi across macOS, Linux, and containers. Prioritizes stability, portability, and reliability.
 
 ## Installation and Setup
 
@@ -22,123 +22,90 @@ REINSTALL_TOOLS=true ./install.sh
 ```
 
 ### Environment Variables
-- `REINSTALL_TOOLS=true` - Force reinstallation of tools
-- `BIN_DIR=/custom/path` - Custom binary installation directory (default: `~/.local/bin`)
-- `DEBUG=1` - Enable debug output
+- `REINSTALL_TOOLS=true` - Force tool reinstallation
+- `BIN_DIR=/custom/path` - Binary install dir (default: `~/.local/bin`)
+- `DEBUG=1` - Debug output
 - `VERIFY_SIGNATURES=false` - Disable signature verification
 
 ## Subagent Routing: Packages, Images, Versions
 
-All changes involving packages, container images, or version manifests must be reviewed by the Package Manager subagent. This is essential for security (immutable pins), reproducibility, and keeping Renovate automation intact.
-
-Always invoke the Package Manager subagent before editing any of the following:
-- Docker Compose files (image tags/digests)
-- Devcontainer images and features
+**Invoke Package Manager subagent before editing:**
+- Docker Compose (image tags/digests)
+- Devcontainer images/features
 - Mise tool declarations (.mise.toml, home/dot_config/mise/config.toml)
-- Homebrew/cask/mas package definitions
-- Python tools requirements (home/dot_config/dotfiles/requirements.txt)
+- Homebrew/cask/mas packages
+- Python requirements (home/dot_config/dotfiles/requirements.txt)
 - Chezmoi externals (home/.chezmoiexternal.toml.tmpl)
-- Version manifests used by scripts (home/dot_config/dotfiles/*.toml)
-- GitHub Actions versions/digests in workflows
+- Version manifests (home/dot_config/dotfiles/*.toml)
+- GitHub Actions versions/digests
 
-Why: The Package Manager subagent enforces immutable pins (versions/digests/SHAs) and ensures Renovate can update them safely. Direct edits risk drift, broken automation, or security regressions.
-
-For background and exact conventions, see doc/renovate.md.
+Why: Enforces immutable pins (versions/digests/SHAs) and maintains Renovate automation. Direct edits risk drift, broken automation, or security issues. See doc/renovate.md.
 
 ## Architecture
 
 ### Chezmoi Structure
-- **Source Directory**: Repository root (configured via `sourceDir = "{{ .chezmoi.workingTree }}"`)
-- **Templates**: Files ending in `.tmpl` are processed by Chezmoi's template engine
-- **Scripts**: `run_onchange_*` scripts execute when their content changes
-- **Dotfiles**: Files prefixed with `dot_` become dotfiles (e.g., `dot_zshrc` → `.zshrc`)
+- **Source**: Repository root (`sourceDir = "{{ .chezmoi.workingTree }}"`)
+- **Templates**: `.tmpl` files processed by template engine
+- **Scripts**: `run_onchange_*` execute on content change
+- **Dotfiles**: `dot_` prefix becomes `.` (e.g., `dot_zshrc` → `.zshrc`)
 
 ### Key Directories
-- `home/` - Contains all managed dotfiles and configuration
-- `home/dot_config/` - XDG config directory contents
+- `home/` - Managed dotfiles/config
+- `home/dot_config/` - XDG config
 - `home/dot_local/bin/` - User binaries
-- `home/private_Library/` - Private macOS Library files (Cursor settings, etc.)
-- `test/` - BATS test suite for validation
-- `bin/` - Repository utility scripts
+- `home/private_Library/` - Private macOS files (Cursor, etc.)
+- `test/` - BATS tests
+- `bin/` - Utility scripts
 
-### Template System
-Chezmoi templates use Go's text/template syntax. Key template variables:
-- `.chezmoi.os` - Operating system (darwin, linux, etc.)
-- `.chezmoi.workingTree` - Repository path
-- `.packages.darwin.brews`, `.packages.darwin.casks`, `.packages.darwin.mas` - Package definitions
+### Templates
+Go text/template syntax. Key variables: `.chezmoi.os`, `.chezmoi.workingTree`, `.packages.darwin.*`
+
+## CRITICAL: Edit Source Files Only
+
+**ALWAYS edit `home/` source files, NEVER `~/` installed files.**
+
+- **DO**: `home/dot_config/nvim/...`
+- **DON'T**: `~/.config/nvim/...`
+
+Why: Chezmoi copies `home/` to `~/`. Edits to `~/` are overwritten on next apply.
+
+Apply changes: `chezmoi diff` (preview), `chezmoi apply [path]` (apply)
 
 ## Testing
 
-### Running Tests
-```bash
-# Run all tests
-bats test/
+Run tests: `bats test/` (all), `bats test/file.bats` (specific), `bats -t test/` (verbose)
 
-# Run specific test file
-bats test/run_onchange_install-mise-tools.bats
-
-# Run tests with verbose output
-bats -t test/
-```
-
-### Test Structure
-- Uses BATS (Bash Automated Testing System)
-- `test_helper.bash` provides common test utilities
-- Tests validate template rendering and script syntax
-- Helper functions: `assert_valid_shell()`, `assert_script_structure()`
+Uses BATS with `test_helper.bash` utilities. Validates templates and script syntax. Helpers: `assert_valid_shell()`, `assert_script_structure()`
 
 ## Development Workflow
 
-### Making Changes
-1. Edit files in the `home/` directory structure
-2. Template files (`.tmpl`) will be processed by Chezmoi
-3. Test changes: `chezmoi diff` to see what would change
-4. Apply changes: `chezmoi apply`
-5. Commit each change with a descriptive Conventional Commit message (e.g., `feat: add package`, `fix: correct template syntax`)
+1. Edit `home/` files (`.tmpl` processed by Chezmoi)
+2. For packages/images/versions: consult Package Manager subagent first
+3. Preview: `chezmoi diff`, apply: `chezmoi apply`
+4. Commit with Conventional Commits: `feat:`, `fix:`, `chore:`
 
-### Claude Code Workflow
-When making configuration changes:
-1. If the task touches packages, images, or version manifests, consult the Package Manager subagent first
-2. Always run `chezmoi diff` before applying to preview changes
-3. Run `chezmoi apply` to apply configuration changes
-4. After each logical change, create a git commit with a descriptive Conventional Commit message
-5. Use commit prefixes: `feat:` for new features/packages, `fix:` for corrections, `chore:` for maintenance
-
-### Adding New Dotfiles
-1. Add file to appropriate location in `home/` with `dot_` prefix
-2. For directories, use `dot_config/` structure
-3. For private files (containing secrets), use `private_` prefix
+### Adding Dotfiles
+- Place in `home/` with `dot_` prefix
+- Use `dot_config/` for XDG dirs
+- Use `private_` for secrets
 
 ### Script Guidelines
-- Installation scripts should be idempotent
-- Use proper error handling (`set -o errexit -o nounset`)
-- Support DEBUG environment variable for verbose output
-- Check tool availability before attempting operations
+- Idempotent with error handling (`set -o errexit -o nounset`)
+- Support DEBUG variable
+- Check tool availability first
 
-## Security Considerations
+## Security
 
-### Signature Verification
-The installer uses cosign for signature verification by default:
-- Verifies GitHub release signatures
-- Can be disabled with `VERIFY_SIGNATURES=false` (not recommended)
-- Falls back to checksum verification if cosign unavailable
+**Signature Verification**: Installer uses cosign by default. Verifies GitHub releases; fallback to checksums. Disable with `VERIFY_SIGNATURES=false` (not recommended).
 
-### Private Files
-- Files with `private_` prefix are not tracked publicly
-- Contains sensitive configuration like API keys or personal data
-- Chezmoi encrypts these files in the source state
+**Private Files**: `private_` prefix excluded from public tracking. Chezmoi encrypts in source state. Contains API keys, personal data.
 
 ## Troubleshooting
 
-### Common Issues
-- **Tools not in PATH**: Ensure `~/.local/bin` is in your PATH
-- **Template rendering errors**: Check template syntax and variable availability
-- **Permission issues**: May need to run installer with appropriate permissions
-- **Signature verification failures**: Check internet connectivity or disable verification
+**Common Issues**:
+- Tools not in PATH: Add `~/.local/bin` to PATH
+- Template errors: Check syntax/variables
+- Permissions: Run installer with proper permissions
+- Signature failures: Check connectivity or disable verification
 
-### Debug Mode
-Enable debug output for troubleshooting:
-```bash
-DEBUG=1 ./install.sh
-DEBUG=1 chezmoi apply -v
-```
+**Debug**: `DEBUG=1 ./install.sh` or `DEBUG=1 chezmoi apply -v`
