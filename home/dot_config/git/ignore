@@ -93,3 +93,5 @@ mise/*.local.toml
 .obsidian/
 
 .claude/settings.local.json
+
+scratch/
