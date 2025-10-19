@@ -14,3 +14,11 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.colorcolumn = "50,72"
   end,
 })
+
+-- Disable concealing in markdown files to show all syntax elements
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.conceallevel = 0
+  end,
+})
