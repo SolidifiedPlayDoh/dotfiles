@@ -26,7 +26,6 @@ fi
 
 # Editor configuration
 export EDITOR="nvim"
-export VISUAL="$(command -v cursor)"
 
 # Pager configuration
 export PAGER="less"
