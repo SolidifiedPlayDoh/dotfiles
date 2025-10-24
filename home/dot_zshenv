@@ -33,3 +33,9 @@ export LESS="-FRX"
 
 # NPM security hardening - disable postinstall scripts for global CLI tools
 export NPM_CONFIG_IGNORE_SCRIPTS=1
+
+# 1Password SSH Agent (for tools that don't read ~/.ssh/config like jj)
+# This ensures SSH_AUTH_SOCK points to 1Password's agent on macOS
+if [[ "$OSTYPE" == darwin* ]]; then
+  export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+fi
