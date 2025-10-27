@@ -31,3 +31,11 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "TermClose", "TermLeave
     end
   end,
 })
+
+-- Disable auto-completion in markdown files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    require("cmp").setup.buffer({ enabled = false })
+  end,
+})
