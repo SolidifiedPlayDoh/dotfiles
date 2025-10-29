@@ -1,0 +1,48 @@
+#:schema https://jj-vcs.github.io/jj/latest/config-schema.json
+
+# Jujutsu (jj) Configuration
+# Managed by Chezmoi - edit source in dotfiles/home/dot_config/jj/config.toml
+
+[aliases]
+ll = ["log", "--template", "builtin_log_detailed"]
+
+[git]
+# Automatically create local bookmarks for remote branches
+auto-local-bookmark = true
+# Abandon commits that become unreachable
+abandon-unreachable-commits = true
+# Write change ID to git commit headers for better jj/git interop
+write-change-id-header = true
+
+[merge]
+# Line-level merge resolution
+hunk-level = "line"
+# When multiple commits make the same change, accept it automatically
+same-change = "accept"
+
+[ui]
+# Default command when running 'jj' without arguments
+default-command = "log"
+# Enable colored output
+color = "auto"
+diff-formatter = ":git"
+editor = "nvim"
+pager = "delta"
+paginate = "auto"
+show-cryptographic-signatures = true
+
+[user]
+name = "Martin Emde"
+email = "me@martinemde.com"
+
+# Uncomment to customize colors
+# [colors]
+# commit_id = "blue"
+# change_id = "magenta"
+# author = "yellow"
+# timestamp = "cyan"
+
+# Uncomment to enable commit signing with GPG
+# [signing]
+# behavior = "own"  # Sign your own commits
+# backend = "gpg"
