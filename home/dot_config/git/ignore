@@ -1,3 +1,4 @@
+# vim: ft=gitignore
 # General
 .DS_Store
 __MACOSX/
