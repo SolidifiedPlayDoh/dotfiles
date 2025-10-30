@@ -36,6 +36,15 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "TermClose", "TermLeave
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   callback = function()
-    require("cmp").setup.buffer({ enabled = false })
+    -- Try blink.cmp first (LazyVim default), then fall back to nvim-cmp
+    local ok, cmp = pcall(require, "blink.cmp")
+    if ok then
+      cmp.setup.buffer({ enabled = false })
+    else
+      ok, cmp = pcall(require, "cmp")
+      if ok then
+        cmp.setup.buffer({ enabled = false })
+      end
+    end
   end,
 })
