@@ -7,8 +7,6 @@
 ll = ["log", "--template", "builtin_log_detailed"]
 
 [git]
-# Automatically create local bookmarks for remote branches
-auto-local-bookmark = true
 # Abandon commits that become unreachable
 abandon-unreachable-commits = true
 # Write change ID to git commit headers for better jj/git interop
@@ -21,6 +19,7 @@ hunk-level = "line"
 same-change = "accept"
 
 [ui]
+bookmark-list-sort-keys = ["committer-date-"]
 # Default command when running 'jj' without arguments
 default-command = "log"
 # Enable colored output
