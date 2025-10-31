@@ -21,7 +21,7 @@ same-change = "accept"
 [ui]
 bookmark-list-sort-keys = ["committer-date-"]
 # Default command when running 'jj' without arguments
-default-command = "log"
+default-command = "status"
 # Enable colored output
 color = "auto"
 diff-formatter = ":git"
