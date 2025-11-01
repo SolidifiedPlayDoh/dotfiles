@@ -142,24 +142,24 @@
       "depNameTemplate": "ohmyzsh/ohmyzsh",
       "packageNameTemplate": "https://github.com/ohmyzsh/ohmyzsh"
     },
-    // Chezmoi external dependencies - zsh-autosuggestions tarball pin
+    // Chezmoi external dependencies - zsh-autosuggestions git-repo revision pin
     {
       "customType": "regex",
       "fileMatch": ["^home/\\.chezmoiexternal\\.toml\\.tmpl$"],
       "matchStrings": [
-        "zsh-users/zsh-autosuggestions/archive/(?<currentDigest>[a-f0-9]{7,40})\\.tar\\.gz"
+        "\\[\"\\.zsh/plugins/zsh-autosuggestions\"\\][^\\[]*url\\s*=\\s*\"https://github\\.com/zsh-users/zsh-autosuggestions\\.git\"[^\\[]*revision\\s*=\\s*\"(?<currentDigest>[a-f0-9]{7,40})\""
       ],
       "datasourceTemplate": "git-refs",
       "currentValueTemplate": "master",
       "depNameTemplate": "zsh-users/zsh-autosuggestions",
       "packageNameTemplate": "https://github.com/zsh-users/zsh-autosuggestions"
     },
-    // Chezmoi external dependencies - zsh-syntax-highlighting tarball pin
+    // Chezmoi external dependencies - zsh-syntax-highlighting git-repo revision pin
     {
       "customType": "regex",
       "fileMatch": ["^home/\\.chezmoiexternal\\.toml\\.tmpl$"],
       "matchStrings": [
-        "zsh-users/zsh-syntax-highlighting/archive/(?<currentDigest>[a-f0-9]{7,40})\\.tar\\.gz"
+        "\\[\"\\.zsh/plugins/zsh-syntax-highlighting\"\\][^\\[]*url\\s*=\\s*\"https://github\\.com/zsh-users/zsh-syntax-highlighting\\.git\"[^\\[]*revision\\s*=\\s*\"(?<currentDigest>[a-f0-9]{7,40})\""
       ],
       "datasourceTemplate": "git-refs",
       "currentValueTemplate": "master",

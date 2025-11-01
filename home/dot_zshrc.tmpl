@@ -22,6 +22,7 @@ fi
 # ----------------------------------------------------------------------------
 # Load Znap Plugin Manager
 # ----------------------------------------------------------------------------
+# Note: Znap is used for caching eval commands only. Plugins are managed by chezmoi.
 source ~/.zsh/znap/zsh-snap/znap.zsh
 
 # ----------------------------------------------------------------------------
@@ -44,8 +45,8 @@ if [[ -z "${SKIP_ZSH_AUTOSUGGESTIONS:-}" ]]; then
     export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
   fi
 
-  # Load zsh-autosuggestions via znap (downloads if needed)
-  znap source zsh-users/zsh-autosuggestions
+  # Load zsh-autosuggestions from local path (managed by chezmoi)
+  source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
   # Speed hack: only fetch suggestions for commands > 2 chars
   _zsh_autosuggest_should_fetch() {
@@ -284,8 +285,8 @@ if [[ -z "${SKIP_ZSH_SYNTAX_HIGHLIGHTING:-}" ]]; then
     'sudo *'                   'fg=white,bold,bg=red'
   )
 
-  # Load zsh-syntax-highlighting via znap (downloads if needed)
-  znap source zsh-users/zsh-syntax-highlighting
+  # Load zsh-syntax-highlighting from local path (managed by chezmoi)
+  source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 fi
 
 # ----------------------------------------------------------------------------
