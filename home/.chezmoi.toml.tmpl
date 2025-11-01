@@ -2,9 +2,6 @@
 # This template is processed during `chezmoi init` to create the actual config file.
 # Variables are prompted from the user and stored in the [data] section.
 
-{{- $gitName := promptString "Git user.name" -}}
-{{- $gitEmail := promptString "Git user.email" -}}
-
 # Source Directory Configuration
 # Allows us to maintain Chezmoi outside of the default `~/.local/share/chezmoi/`.
 # This enables storing the dotfiles repository in a custom location while still
@@ -17,8 +14,8 @@ sourceDir = "{{ .chezmoi.workingTree }}"
 [data.git]
 # Git user configuration - prompted during initialization
 # Used in git config templates and other version control settings
-name = {{ $gitName | quote }}
-email = {{ $gitEmail | quote }}
+name = "Martin Emde"
+email = "me@martinemde.com"
 
 [diff]
 format = "git"
