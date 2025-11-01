@@ -12,10 +12,11 @@ b = ["fuzzy_bookmark"]
 ba = ["bookmark", "list", "--all"]
 co = ["checkout"]
 d = ["diff"]
-s = ["status"]
 l = ["log", "-r", "(trunk()..@):: | (trunk()..@)-"]
 la = ["log", "-r", "..@"]
 ll = ["log", "--template", "builtin_log_detailed"]
+rb = ["rebase"]
+s = ["status"]
 
 fetch = ["git", "fetch"]
 name = ["bookmark", "set", "-r", "closest_pushable(@)"]
@@ -35,7 +36,13 @@ credit = ["file", "annotate"]
 retrunk = ["rebase", "--destination", "trunk()"]
 
 # Retrunk the current stack of work.
-reheat = ["rebase", "--destination", "trunk()", "--source", "all:roots(trunk()..stack(@))"]
+reheat = [
+  "rebase",
+  "--destination",
+  "trunk()",
+  "--source",
+  "all:roots(trunk()..stack(@))",
+]
 
 # Eject content from @ into any other change.
 # - jj eject xyz --interactive
@@ -55,13 +62,21 @@ fi
 """, ""]
 
 # list or jump to bookmarks
-fuzzy_bookmark = ["util", "exec", "--", "sh", "-c", """
+fuzzy_bookmark = [
+  "util",
+  "exec",
+  "--",
+  "sh",
+  "-c",
+  """
 if [ "x$1" = "x" ]; then
   jj bookmark list
 else
   jj bookmark list -a -T 'separate("@", name, remote) ++ "\n"' 2> /dev/null | sort | uniq | fzf -f "$1" | head -n1 | xargs jj new
 fi
-""", ""]
+""",
+  "",
+]
 
 # colocate with git and track origin's branches
 init = ["util", "exec", "--", "bash", "-c", """
@@ -77,7 +92,13 @@ checkout = ["util", "exec", "--", "bash", "-c", """
 """, ""]
 
 # tug the closest bookmark, push it, and track it
-push = ["util", "exec", "--", "bash", "-c", """
+push = [
+  "util",
+  "exec",
+  "--",
+  "bash",
+  "-c",
+  """
 tuggable="$(jj log -r 'closest_bookmark(@)..closest_pushable(@)' -T '"n"' --no-graph)"
 [[ -n "$tuggable" ]] && jj tug
 pushable="$(jj log -r 'remote_bookmarks(remote=origin)..@' -T 'bookmarks' --no-graph)"
@@ -86,30 +107,52 @@ closest="$(jj log -r 'closest_bookmark(@)' -n 1 -T 'bookmarks' --no-graph | cut 
 closest="${closest%\\*}"
 tracked="$(jj bookmark list -r ${closest} -t -T 'if(remote == "origin", name)')"
 [[ "$tracked" == "$closest" ]] || jj bookmark track "${closest}@origin"
-"""]
+""",
+]
 
 # update from remote and rebase onto the latest
-pull = ["util", "exec", "--", "bash", "-c", """
+pull = [
+  "util",
+  "exec",
+  "--",
+  "bash",
+  "-c",
+  """
 closest="$(jj log -r 'closest_bookmark(@)' -n 1 -T 'bookmarks' --no-graph | cut -d ' ' -f 1)"
 closest="${closest%\\*}"
 jj git fetch
 jj log -n 1 -r "${closest}" 2>&1 > /dev/null && jj rebase -d "${closest}" || jj rebase -d 'trunk()'
 jj log -r 'stack()'
-"""]
+""",
+]
 
 # create a pull request using `gh` for closest_bookmark(@)
-pr = ["util", "exec", "--", "bash", "-c", """
+pr = [
+  "util",
+  "exec",
+  "--",
+  "bash",
+  "-c",
+  """
 gh pr create --head $(jj log -r 'closest_bookmark(@)' -T 'bookmarks' --no-graph | cut -d ' ' -f 1)
-"""]
+""",
+]
 
 # create a pull request from the last change and try to automatically merge it
-prl = ["util", "exec", "--", "bash", "-c", """
+prl = [
+  "util",
+  "exec",
+  "--",
+  "bash",
+  "-c",
+  """
 branch="$(jj log -r 'closest_bookmark(@)' -T 'bookmarks' --no-graph | cut -d ' ' -f 1)"
 branch="${branch%\\*}"
 title="$(jj log -r $branch -T 'description_title' --no-graph)"
 body="$(jj log -r $branch -T 'description_body' --no-graph)"
 gh pr create --head "$branch" --title "$title" --body "$body" && gh pr merge $branch --auto --merge
-"""]
+""",
+]
 
 [revset-aliases]
 'closest_bookmark(to)' = 'heads(::to & bookmarks())'
