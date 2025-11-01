@@ -71,6 +71,11 @@ znap eval atuin 'atuin init zsh'
 znap eval starship 'starship init zsh'
 {{- end }}
 
+{{- if lookPath "zoxide" }}
+# zoxide can be cached for faster startup
+znap eval zoxide 'zoxide init zsh'
+{{- end }}
+
 # ----------------------------------------------------------------------------
 # Zsh Options
 # ----------------------------------------------------------------------------
