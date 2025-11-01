@@ -19,3 +19,7 @@ sourceDir = "{{ .chezmoi.workingTree }}"
 # Used in git config templates and other version control settings
 name = {{ $gitName | quote }}
 email = {{ $gitEmail | quote }}
+
+[diff]
+format = "git"
+pager = "delta"
