@@ -19,4 +19,4 @@ conflictstyle = zdiff3
 [diff]
 colorMoved = default
 
-# vim: ft=gitconfig:noexpandtab
+# vim: ft=gitconfig
