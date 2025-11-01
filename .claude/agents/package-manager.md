@@ -162,6 +162,140 @@ Next Steps:
 - [ ] Review and approve changes
 ```
 
+## Chezmoi External Format Reference
+
+### Overview
+
+The `.chezmoiexternal.$FORMAT` file (typically `.chezmoiexternal.toml.tmpl`) defines external files, archives, and Git repos that chezmoi manages. It's fully templatable, enabling machine-specific configurations.
+
+### Supported External Types
+
+1. **`file`**: Single file download
+   - Downloads a file from a URL
+   - Supports checksums and executable permissions
+
+2. **`archive`**: Full directory/archive extraction
+   - Extracts entire archive (tar.gz, zip, etc.) into target directory
+   - Supports include/exclude patterns
+   - Can mark directory as `exact` to remove unlisted files
+
+3. **`archive-file`**: Single file extraction from archive
+   - Extracts one specific file from an archive
+   - Useful for release binaries distributed in archives
+
+4. **`git-repo`**: Clone/update Git repository
+   - Clones or updates a Git repository
+   - Supports branch/tag/commit pinning
+
+### Critical Fields
+
+#### Required
+- **`type`**: One of `file`, `archive`, `archive-file`, `git-repo`
+- **`url`** or **`urls`**: Source location (HTTPS/HTTP/file://)
+  - `urls` array provides fallback options if primary fails
+
+#### Optional Modifiers
+- **`executable`**: Make file executable (boolean)
+- **`exact`**: Enforce exact directory matching (boolean)
+- **`encrypted`**: Handle encrypted content (boolean)
+- **`checksum`**: SHA256 checksum for verification (string)
+- **`refreshPeriod`**: Control update frequency (duration string, e.g., "168h")
+- **`path`**: For `archive-file`, specifies file within archive to extract
+
+### Version Pinning Requirements
+
+**CRITICAL**: Always pin external URLs to immutable references:
+
+- **GitHub tarballs**: Use commit SHA in URL
+  ```toml
+  url = "https://github.com/org/repo/archive/<COMMIT_SHA>.tar.gz"
+  ```
+  NOT: `url = "https://github.com/org/repo/archive/master.tar.gz"`
+
+- **GitHub releases**: Pin to specific version tag and include checksum
+  ```toml
+  url = "https://github.com/org/repo/releases/download/v1.2.3/tool.tar.gz"
+  checksum = "sha256:abc123..."
+  ```
+
+- **Git repos**: Pin to specific commit, tag, or SHA (via fragment)
+  ```toml
+  url = "https://github.com/org/repo.git#v1.2.3"
+  ```
+
+### Important Behaviors
+
+- **Auto-creates parent directories**: No need to pre-create paths
+- **Caches downloads**: Reduces redundant fetches
+- **Supports filtering**: Use include/exclude patterns with archives
+- **Respects `.chezmoiignore`**: Honors ignore rules
+- **Template processing**: Full Go template support for machine-specific configs
+
+### Examples from This Repository
+
+#### Binary from Archive
+```toml
+[".local/bin/zellij"]
+    type = "archive-file"
+    url = "https://github.com/zellij-org/zellij/releases/download/v0.40.0/zellij-x86_64-unknown-linux-musl.tar.gz"
+    executable = true
+    path = "zellij"
+    checksum = "sha256:..."
+```
+
+#### Oh-My-Zsh Framework (Pinned to SHA)
+```toml
+[".oh-my-zsh"]
+    type = "archive"
+    url = "https://github.com/ohmyzsh/ohmyzsh/archive/abc123def456.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"  # Weekly
+```
+
+### Renovate Integration
+
+For each external entry, ensure corresponding Renovate `customManagers` entry exists:
+
+```json5
+{
+  customType: "regex",
+  fileMatch: ["^home/\\.chezmoiexternal\\.toml\\.tmpl$"],
+  matchStrings: [
+    'url = "https://github\\.com/org/repo/archive/(?<currentDigest>[a-f0-9]{40})\\.tar\\.gz"'
+  ],
+  depNameTemplate: "org/repo",
+  datasourceTemplate: "git-refs",
+  currentValueTemplate: "master"
+}
+```
+
+### Common Patterns
+
+#### Platform-Specific Binaries
+Use Go templates to select appropriate binary per OS/arch:
+
+```toml
+{{- $arch := .chezmoi.arch -}}
+{{- if eq .chezmoi.os "darwin" }}
+[".local/bin/tool"]
+    type = "archive-file"
+    url = "https://github.com/org/tool/releases/download/v1.0.0/tool-darwin-{{ $arch }}.tar.gz"
+    executable = true
+{{- end }}
+```
+
+#### Multiple URL Fallbacks
+```toml
+[".local/bin/tool"]
+    type = "file"
+    urls = [
+      "https://primary-cdn.com/tool",
+      "https://github.com/org/tool/releases/download/v1.0.0/tool"
+    ]
+    executable = true
+```
+
 ## Tips: Finding Image Digests (Docker)
 
 Use these methods to resolve a tag (e.g., `alpine:edge`) to an immutable `@sha256:` digest. Prefer platform-specific digests when pinning in multi-arch contexts.
