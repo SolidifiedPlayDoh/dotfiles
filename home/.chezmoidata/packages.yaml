@@ -54,11 +54,11 @@ packages:
       - flac
 
       # Git
-      - delta
       - gh
       - ghq
       - git
       - git-lfs
+      - git-delta
       - jj
       - lazygit
 

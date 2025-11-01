@@ -1,5 +1,4 @@
 [tools]
-"aqua:dandavison/delta" = "0.18.2"
 "aqua:jqlang/jq" = "1.7.1"
 "aqua:technicalpickles/envsense" = "0.3.0"
 bun = "1.2.21"
