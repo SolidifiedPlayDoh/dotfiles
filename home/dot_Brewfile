@@ -1,0 +1,114 @@
+tap "homebrew/bundle"  # package manager
+tap "homebrew/services"  # service management
+
+brew "atuin"  # shell history
+brew "automake"  # build tool
+brew "openssl@3"  # crypto library
+brew "readline"  # line editing library
+brew "awscli"  # AWS CLI
+brew "bat"  # cat replacement
+brew "bison"  # parser generator
+brew "node"  # Node.js runtime
+brew "ccusage"  # CPU monitor
+brew "chezmoi"  # dotfiles manager
+brew "cloc"  # code counter
+brew "cmake"  # build tool
+brew "ripgrep"  # grep replacement
+brew "codex"  # code search
+brew "colima"  # Docker runtime
+brew "gmp"  # math library
+brew "coreutils"  # GNU coreutils
+brew "cosign"  # signature tool
+brew "curl"  # HTTP client
+brew "devcontainer"  # devcontainer CLI
+brew "docker"  # container runtime
+brew "docker-buildx"  # Docker build
+brew "docker-compose"  # container orchestration
+brew "docker-credential-helper"  # Docker auth
+brew "docker-credential-helper-ecr"  # ECR auth
+brew "dotslash"  # executable runner
+brew "duf"  # disk usage
+brew "dust"  # disk usage
+brew "libsodium"  # crypto library
+brew "eza"  # ls replacement
+brew "fd"  # find replacement
+brew "flac"  # audio codec
+brew "tesseract"  # OCR tool
+brew "ffmpeg"  # media converter
+brew "flock"  # file locking
+brew "fzf"  # fuzzy finder
+brew "gh"  # GitHub CLI
+brew "ghostscript"  # PostScript interpreter
+brew "ghq"  # Git repo manager
+brew "git"  # version control
+brew "git-delta"  # git diff tool
+brew "git-lfs"  # Git LFS
+brew "glow"  # markdown viewer
+brew "go"  # Go runtime
+brew "graphicsmagick"  # image processing
+brew "graphviz"  # graph visualization
+brew "htop"  # process monitor
+brew "imagemagick"  # image processing
+brew "jj"  # version control
+brew "jq"  # JSON processor
+brew "librdkafka"  # Kafka library
+brew "kcat"  # Kafka tool
+brew "lazygit"  # Git TUI
+brew "lbzip2"  # parallel bzip2
+brew "lefthook"  # Git hooks
+brew "libffi"  # FFI library
+brew "libyaml"  # YAML library
+brew "mailhog", restart_service: :changed  # mail testing
+brew "mas"  # Mac App Store CLI
+brew "mermaid-cli"  # diagram generator
+brew "mise"  # tool version manager
+brew "mkcert"  # cert generator
+brew "mupdf"  # PDF viewer
+brew "neovim"  # text editor
+brew "nvm"  # Node version manager
+brew "overmind"  # process manager
+brew "pandoc"  # document converter
+brew "pgvector"  # PostgreSQL extension
+brew "pipx"  # Python installer
+brew "poppler"  # PDF library
+brew "pre-commit"  # Git hooks
+brew "rbspy"  # Ruby profiler
+brew "redis", restart_service: :changed  # database
+brew "ruby-build"  # Ruby builder
+brew "ruby-install"  # Ruby installer
+brew "rv"  # Ruby version manager
+brew "shellcheck"  # shell linter
+brew "starship"  # shell prompt
+brew "terraform"  # IaC tool
+brew "texinfo"  # documentation
+brew "trash"  # safe delete
+brew "tree"  # directory tree
+brew "uv"  # Python installer
+brew "vips"  # image processing
+brew "watchman"  # file watcher
+brew "yamllint"  # YAML linter
+brew "yq"  # YAML processor
+brew "zoxide"  # cd replacement
+brew "zsh"  # shell
+
+cask "1password"  # password manager
+cask "1password-cli"  # password CLI
+cask "amethyst"  # window manager
+cask "betterdisplay"  # display manager
+cask "colemak-dh"  # keyboard layout
+cask "cursor"  # text editor
+cask "ghostty"  # terminal emulator
+cask "keymapp"  # key mapper
+cask "loopback"  # audio router
+cask "meld"  # diff tool
+cask "ngrok"  # tunneling tool
+cask "obsidian"  # note taker
+cask "slack"  # messaging
+cask "stats"  # system monitor
+cask "visual-studio-code"  # text editor
+
+mas "1Blocker", id: 1365531024
+mas "1Password for Safari", id: 1569813296
+mas "Kagi for Safari", id: 1622835804
+mas "MeetingBar", id: 1532419400
+mas "Noir", id: 1592917505

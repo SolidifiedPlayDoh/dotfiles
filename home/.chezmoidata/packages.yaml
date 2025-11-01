@@ -25,6 +25,7 @@ packages:
       - neovim
       - ripgrep
       - tree
+      - zoxide
 
       # System monitoring
       - ccusage
