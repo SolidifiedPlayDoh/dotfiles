@@ -177,6 +177,18 @@
       "currentValueTemplate": "master",
       "depNameTemplate": "gpakosz/.tmux",
       "packageNameTemplate": "https://github.com/gpakosz/.tmux"
+    },
+    // Chezmoi external dependencies - zsh-snap git-repo revision pin
+    {
+      "customType": "regex",
+      "fileMatch": ["^home/\\.chezmoiexternal\\.toml\\.tmpl$"],
+      "matchStrings": [
+        "\\[\"\\.zsh/znap/zsh-snap\"\\][^\\[]*url\\s*=\\s*\"https://github\\.com/marlonrichert/zsh-snap\\.git\"[^\\[]*revision\\s*=\\s*\"(?<currentDigest>[a-f0-9]{7,40})\""
+      ],
+      "datasourceTemplate": "git-refs",
+      "currentValueTemplate": "main",
+      "depNameTemplate": "marlonrichert/zsh-snap",
+      "packageNameTemplate": "https://github.com/marlonrichert/zsh-snap"
     }
   ]
 }

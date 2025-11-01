@@ -4,30 +4,13 @@
 # the git-refs datasource to track upstream master branches and propose SHA updates.
 
 {{ if lookPath "zsh" }}
-# Oh-My-Zsh external configuration
-# Only install if zsh is available in the system PATH
-[".oh-my-zsh"]
-    type = "archive"
-    url = "https://github.com/ohmyzsh/ohmyzsh/archive/2525dae6613652ec9cb572bdc2fdf80ef837a967.tar.gz"
-    exact = true
-    stripComponents = 1
-    refreshPeriod = "24h"
-
-# Zsh Autosuggestions plugin - speed-optimized (tarball is fastest)
-[".config/zsh/plugins/zsh-autosuggestions"]
-    type = "archive"
-    url = "https://github.com/zsh-users/zsh-autosuggestions/archive/85919cd1ffa7d2d5412f6d3fe437ebdbeeec4fc5.tar.gz"
-    exact = true
-    stripComponents = 1
-    refreshPeriod = "168h"  # Weekly updates for stability
-
-# Zsh Syntax Highlighting plugin - speed-optimized (tarball is fastest)
-[".config/zsh/plugins/zsh-syntax-highlighting"]
-    type = "archive"
-    url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/5eb677bb0fa9a3e60f0eff031dc13926e093df92.tar.gz"
-    exact = true
-    stripComponents = 1
-    refreshPeriod = "168h"  # Weekly updates for stability
+# Znap - Fast, minimal zsh plugin manager with lazy loading
+# Manages zsh plugins automatically (autosuggestions, syntax-highlighting)
+[".zsh/znap/zsh-snap"]
+    type = "git-repo"
+    url = "https://github.com/marlonrichert/zsh-snap.git"
+    revision = "25754a45d9ceafe6d7d082c9ebe40a08cb85a4f0"
+    refreshPeriod = "168h"
 {{ end }}
 
 # Tmux configuration external
