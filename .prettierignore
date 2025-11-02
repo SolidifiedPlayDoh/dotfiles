@@ -9,6 +9,19 @@
 node_modules/
 .git/
 
-# Keep template syntax intact - only format the content, not the templates
-# Comment out if you want to format .tmpl files too:
-# *.tmpl
+# Keep template syntax intact - CRITICAL: Never format templates
+*.tmpl
+
+# Files that Prettier doesn't support or shouldn't format
+*.lua
+*.bats
+*.sh
+bin/
+home/dot_local/bin/
+.chezmoiscripts/
+
+# JSON5 file without plugin support
+renovate.json5
+
+# Private configs (format manually if needed)
+home/private_*/
