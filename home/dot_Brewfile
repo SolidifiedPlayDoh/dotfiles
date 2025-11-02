@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-tap 'homebrew/bundle' # package manager
-tap 'homebrew/services' # service management
-
 brew 'atuin' # shell history
 brew 'automake' # build tool
 brew 'openssl@3' # crypto library
