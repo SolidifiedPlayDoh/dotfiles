@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+
+# reload! - re-exec the shell using the exact same zsh binary
+#
+# This function carefully determines which zsh binary is currently running
+# and re-execs it, preserving the current environment.
+
+local zsh_path
+
+# Method 1: Linux - /proc/$$/exe symlinks to the actual executable
+if [[ -r /proc/$$/exe ]]; then
+  zsh_path=$(readlink /proc/$$/exe)
+# Method 2: macOS/BSD - Use lsof to find the binary
+elif command -v lsof >/dev/null && zsh_path=$(lsof -p $$ -Fn | awk '/^n.*zsh$/{print substr($0,2); exit}'); then
+  :  # zsh_path already set
+# Method 3: Non-login shells - $0 contains the actual path
+elif [[ $0 != -* ]]; then
+  zsh_path=$0
+# Method 4: Login shell detection
+elif [[ $0 == -* ]]; then
+  if command -v getent >/dev/null; then
+    zsh_path=$(getent passwd "$USER" | cut -d: -f7)
+  elif command -v dscl >/dev/null; then
+    zsh_path=$(dscl . -read "/Users/$USER" UserShell | awk '{print $2}')
+  else
+    zsh_path=$SHELL
+  fi
+# Method 5: Final fallback
+else
+  zsh_path=$SHELL
+fi
+
+exec "$zsh_path" "$@"
