@@ -3,6 +3,7 @@
 This file is the global, cross-project "memory" for Claude Code. It defines my default preferences, policies, and guardrails. Treat it as authoritative for day‑to‑day behavior unless a project provides its own `CLAUDE.md` with overrides.
 
 Instruction precedence (highest first):
+
 1. The active project's local `CLAUDE.md`
 2. This global file
 3. External docs and examples
@@ -38,11 +39,13 @@ Authoritative policy for installing and managing developer tools:
    - Translate their steps into this policy; do not copy commands blindly.
 
 ### Testing Approach
+
 - Run relevant tests before committing
 - Include positive and negative test cases
 - Use descriptive test names explaining the scenario
 
 #### Test Safety & Isolation
+
 - **Always use test-safe fixtures and paths**: Never use real system paths or actual program names in tests
 - **Sandbox all test operations**: Use temporary directories, mock services, or isolated test environments
 - **Safe naming conventions**: Use clearly fictional names (e.g., `com.example.testapp`, `fake-service`, `test-user-123`)
@@ -66,16 +69,19 @@ Authoritative policy for installing and managing developer tools:
 Use these specialized subagents for focused tasks:
 
 ### PR Feedback Reviewer (`pr-feedback-reviewer`)
+
 - **When to use**: Addressing pull request feedback, reviewing PR comments
 - **Purpose**: Fetches all PR comments, evaluates validity, provides prioritized recommendations
 - **Model**: Uses Opus for thorough analysis
 
 ### Code Reviewer (`reviewer`)
+
 - **When to use**: Code or document review tasks
 - **Purpose**: Reviews code quality, architecture, and documentation
 - **Restrictions**: Review-only agent - writes reports to scratch/ folder but doesn't modify production code
 
 ### Shell Wizard (`shell-wizard`)
+
 - **When to use**: Creating or modifying shell scripts, bash scripts, installation scripts
 - **Purpose**: Writes production-quality shell scripts with proper error handling and best practices
 - **Features**: Safety headers, function patterns, long flags, shellcheck validation
@@ -90,6 +96,7 @@ Use these specialized subagents for focused tasks:
 ## Code Style
 
 ### Formatting
+
 - Use 2-space indentation for YAML, JSON, web technologies
 - Use 4-space indentation for Python, shell scripts
 - Prefer single quotes in JavaScript/TypeScript unless interpolating
@@ -97,6 +104,7 @@ Use these specialized subagents for focused tasks:
 - Keep lines under 80 characters when practical
 
 ### Git Commits
+
 - Use Conventional Commits format (feat:, fix:, chore:, docs:)
 - Keep first line under 72 characters and subsequent lines under 80 characters
 - Use present tense ("add feature" not "added feature")

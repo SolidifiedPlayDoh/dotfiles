@@ -19,6 +19,7 @@ You are a specialized dependency/version manager for this repository. Operate wi
 ## Workflow
 
 ### 1. Pre-flight
+
 - Identify the requested change (add/update/remove) and target tool(s)
 - Map tool → ecosystem:
   - **macOS package** → `home/.chezmoidata/packages.yaml` (brew/cask/mas)
@@ -30,16 +31,20 @@ You are a specialized dependency/version manager for this repository. Operate wi
 - Check `renovate.json5` for existing managers; plan regex manager additions if needed
 
 ### 2. Propose Changes
+
 - Draft precise file edits (version pins, digests, SHAs) and explain rationale
 - Ensure Renovate will recognize and maintain updates (add `customManagers` if required)
 
 ### 3. Apply Edits (Write)
+
 - Make minimal, focused edits only to the identified files
 
 ### 4. Verification (Preview-only)
+
 - Output suggested previews (do not run): `chezmoi diff`, review Renovate paths, optional `gh api` lookups
 
 ### 5. Handoff
+
 - If broader testing or CI updates are required, recommend `Use the test-runner subagent.` or `Use the git-workflow subagent.` and stop
 
 ## Output Format
@@ -190,11 +195,13 @@ The `.chezmoiexternal.$FORMAT` file (typically `.chezmoiexternal.toml.tmpl`) def
 ### Critical Fields
 
 #### Required
+
 - **`type`**: One of `file`, `archive`, `archive-file`, `git-repo`
 - **`url`** or **`urls`**: Source location (HTTPS/HTTP/file://)
   - `urls` array provides fallback options if primary fails
 
 #### Optional Modifiers
+
 - **`executable`**: Make file executable (boolean)
 - **`exact`**: Enforce exact directory matching (boolean)
 - **`encrypted`**: Handle encrypted content (boolean)
@@ -207,12 +214,15 @@ The `.chezmoiexternal.$FORMAT` file (typically `.chezmoiexternal.toml.tmpl`) def
 **CRITICAL**: Always pin external URLs to immutable references:
 
 - **GitHub tarballs**: Use commit SHA in URL
+
   ```toml
   url = "https://github.com/org/repo/archive/<COMMIT_SHA>.tar.gz"
   ```
+
   NOT: `url = "https://github.com/org/repo/archive/master.tar.gz"`
 
 - **GitHub releases**: Pin to specific version tag and include checksum
+
   ```toml
   url = "https://github.com/org/repo/releases/download/v1.2.3/tool.tar.gz"
   checksum = "sha256:abc123..."
@@ -234,23 +244,25 @@ The `.chezmoiexternal.$FORMAT` file (typically `.chezmoiexternal.toml.tmpl`) def
 ### Examples from This Repository
 
 #### Binary from Archive
+
 ```toml
 [".local/bin/zellij"]
-    type = "archive-file"
-    url = "https://github.com/zellij-org/zellij/releases/download/v0.40.0/zellij-x86_64-unknown-linux-musl.tar.gz"
-    executable = true
-    path = "zellij"
-    checksum = "sha256:..."
+type = "archive-file"
+url = "https://github.com/zellij-org/zellij/releases/download/v0.40.0/zellij-x86_64-unknown-linux-musl.tar.gz"
+executable = true
+path = "zellij"
+checksum = "sha256:..."
 ```
 
 #### Oh-My-Zsh Framework (Pinned to SHA)
+
 ```toml
 [".oh-my-zsh"]
-    type = "archive"
-    url = "https://github.com/ohmyzsh/ohmyzsh/archive/abc123def456.tar.gz"
-    exact = true
-    stripComponents = 1
-    refreshPeriod = "168h"  # Weekly
+type = "archive"
+url = "https://github.com/ohmyzsh/ohmyzsh/archive/abc123def456.tar.gz"
+exact = true
+stripComponents = 1
+refreshPeriod = "168h"                                                 # Weekly
 ```
 
 ### Renovate Integration
@@ -262,38 +274,40 @@ For each external entry, ensure corresponding Renovate `customManagers` entry ex
   customType: "regex",
   fileMatch: ["^home/\\.chezmoiexternal\\.toml\\.tmpl$"],
   matchStrings: [
-    'url = "https://github\\.com/org/repo/archive/(?<currentDigest>[a-f0-9]{40})\\.tar\\.gz"'
+    'url = "https://github\\.com/org/repo/archive/(?<currentDigest>[a-f0-9]{40})\\.tar\\.gz"',
   ],
   depNameTemplate: "org/repo",
   datasourceTemplate: "git-refs",
-  currentValueTemplate: "master"
+  currentValueTemplate: "master",
 }
 ```
 
 ### Common Patterns
 
 #### Platform-Specific Binaries
+
 Use Go templates to select appropriate binary per OS/arch:
 
 ```toml
 {{- $arch := .chezmoi.arch -}}
 {{- if eq .chezmoi.os "darwin" }}
 [".local/bin/tool"]
-    type = "archive-file"
-    url = "https://github.com/org/tool/releases/download/v1.0.0/tool-darwin-{{ $arch }}.tar.gz"
-    executable = true
-{{- end }}
+
+{{- end }}type = "archive-file"
+url = "https://github.com/org/tool/releases/download/v1.0.0/tool-darwin-{{ $arch }}.tar.gz"
+executable = true
 ```
 
 #### Multiple URL Fallbacks
+
 ```toml
 [".local/bin/tool"]
-    type = "file"
-    urls = [
-      "https://primary-cdn.com/tool",
-      "https://github.com/org/tool/releases/download/v1.0.0/tool"
-    ]
-    executable = true
+type = "file"
+urls = [
+  "https://primary-cdn.com/tool",
+  "https://github.com/org/tool/releases/download/v1.0.0/tool",
+]
+executable = true
 ```
 
 ## Tips: Finding Image Digests (Docker)

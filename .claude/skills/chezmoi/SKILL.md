@@ -18,6 +18,7 @@ This skill handles all aspects of package and dependency management in chezmoi d
 ## When to Use This Skill
 
 Invoke this skill when the user requests:
+
 - Adding/updating/removing packages or tools
 - Managing chezmoi external dependencies
 - Pinning versions or updating SHAs
@@ -30,6 +31,7 @@ Invoke this skill when the user requests:
 ### 1. Identify the Request
 
 Determine what the user wants:
+
 - **Add**: New package or external dependency
 - **Update**: Change version/SHA of existing package
 - **Remove**: Delete package or external
@@ -40,14 +42,14 @@ Determine what the user wants:
 
 Choose the appropriate package manager (see `./ecosystem-guide.md` for details):
 
-| Use Case | Ecosystem | Location |
-|----------|-----------|----------|
-| macOS packages (Homebrew) | brew/cask/mas | `home/.chezmoidata/packages.yaml` |
-| CLI developer tools | mise (Aqua) | `.mise.toml` or `home/dot_config/mise/config.toml` |
-| Python tools | pip | `home/dot_config/dotfiles/requirements.txt` |
-| Docker/devcontainer | docker | `home/dot_config/docker-compose/*.yml`, `.devcontainer/` |
-| External files/repos | chezmoi externals | `home/.chezmoiexternals/*.toml[.tmpl]` |
-| Install script CLIs | cli-versions | `home/dot_config/dotfiles/cli-versions.toml` |
+| Use Case                  | Ecosystem         | Location                                                 |
+| ------------------------- | ----------------- | -------------------------------------------------------- |
+| macOS packages (Homebrew) | brew/cask/mas     | `home/.chezmoidata/packages.yaml`                        |
+| CLI developer tools       | mise (Aqua)       | `.mise.toml` or `home/dot_config/mise/config.toml`       |
+| Python tools              | pip               | `home/dot_config/dotfiles/requirements.txt`              |
+| Docker/devcontainer       | docker            | `home/dot_config/docker-compose/*.yml`, `.devcontainer/` |
+| External files/repos      | chezmoi externals | `home/.chezmoiexternals/*.toml[.tmpl]`                   |
+| Install script CLIs       | cli-versions      | `home/dot_config/dotfiles/cli-versions.toml`             |
 
 ### 3. For Chezmoi Externals: Use .chezmoiexternals/ Directory
 
@@ -73,20 +75,20 @@ home/.chezmoiexternals/
 #### Example: zsh.externals.toml.tmpl
 
 ```toml
-# Zsh plugins and tools
 {{ if lookPath "zsh" }}
+# Zsh plugins and tools
 [".zsh/znap/zsh-snap"]
-    type = "git-repo"
-    url = "https://github.com/marlonrichert/zsh-snap.git"
-    revision = "25754a45d9ceafe6d7d082c9ebe40a08cb85a4f0"
-    refreshPeriod = "168h"
+type = "git-repo"
+url = "https://github.com/marlonrichert/zsh-snap.git"
+revision = "25754a45d9ceafe6d7d082c9ebe40a08cb85a4f0"
+refreshPeriod = "168h"
 
 [".zsh/plugins/zsh-autosuggestions"]
-    type = "git-repo"
-    url = "https://github.com/zsh-users/zsh-autosuggestions.git"
-    revision = "85919cd1ffa7d2d5412f6d3fe437ebdbeeec4fc5"
-    refreshPeriod = "168h"
-{{ end }}
+
+{{ end }}type = "git-repo"
+url = "https://github.com/zsh-users/zsh-autosuggestions.git"
+revision = "85919cd1ffa7d2d5412f6d3fe437ebdbeeec4fc5"
+refreshPeriod = "168h"
 ```
 
 ### 4. External Types and Patterns
@@ -94,58 +96,67 @@ home/.chezmoiexternals/
 Chezmoi supports four external types (detailed in `./externals-reference.md`):
 
 #### git-repo
+
 For complete Git repositories (plugins, frameworks):
+
 ```toml
 [".zsh/plugins/plugin-name"]
-    type = "git-repo"
-    url = "https://github.com/user/repo.git"
-    revision = "<commit-sha>"  # MUST pin to SHA
-    refreshPeriod = "168h"
+type = "git-repo"
+url = "https://github.com/user/repo.git"
+revision = "<commit-sha>"                # MUST pin to SHA
+refreshPeriod = "168h"
 ```
 
 #### file
+
 For single files (themes, configs):
+
 ```toml
 [".config/tool/theme.tmTheme"]
-    type = "file"
-    url = "https://github.com/user/repo/raw/<commit-sha>/file.ext"
-    refreshPeriod = "168h"
+type = "file"
+url = "https://github.com/user/repo/raw/<commit-sha>/file.ext"
+refreshPeriod = "168h"
 ```
 
 #### archive-file
+
 For extracting single binary from release archive:
+
 ```toml
 [".local/bin/tool"]
-    type = "archive-file"
-    url = "https://github.com/user/repo/releases/download/v1.2.3/tool.tar.gz"
-    executable = true
-    path = "tool"
-    checksum = "sha256:abc123..."
+type = "archive-file"
+url = "https://github.com/user/repo/releases/download/v1.2.3/tool.tar.gz"
+executable = true
+path = "tool"
+checksum = "sha256:abc123..."
 ```
 
 #### archive
+
 For extracting entire archive into directory:
+
 ```toml
 [".config/tool"]
-    type = "archive"
-    url = "https://github.com/user/repo/archive/<commit-sha>.tar.gz"
-    exact = true
-    stripComponents = 1
-    refreshPeriod = "168h"
+type = "archive"
+url = "https://github.com/user/repo/archive/<commit-sha>.tar.gz"
+exact = true
+stripComponents = 1
+refreshPeriod = "168h"
 ```
 
 ### 5. Version Pinning Requirements
 
 **CRITICAL**: Always use immutable references:
 
-| Type | Pinning Method | Example |
-|------|----------------|---------|
-| Git repo | Commit SHA in `revision` | `revision = "abc123..."` |
-| GitHub file | Commit SHA in URL path | `raw/<sha>/file.ext` |
-| Release binary | Version tag + checksum | `v1.2.3` + `checksum = "sha256:..."` |
-| Docker image | Digest | `image:tag@sha256:...` |
+| Type           | Pinning Method           | Example                              |
+| -------------- | ------------------------ | ------------------------------------ |
+| Git repo       | Commit SHA in `revision` | `revision = "abc123..."`             |
+| GitHub file    | Commit SHA in URL path   | `raw/<sha>/file.ext`                 |
+| Release binary | Version tag + checksum   | `v1.2.3` + `checksum = "sha256:..."` |
+| Docker image   | Digest                   | `image:tag@sha256:...`               |
 
 **NEVER use**:
+
 - `latest` tags
 - Mutable branch names without SHA pinning
 - Version ranges or wildcards
@@ -158,12 +169,13 @@ For each external dependency, verify or add corresponding Renovate rule in `reno
 See `./renovate-integration.md` for detailed patterns.
 
 **Quick reference**:
+
 ```json5
 {
   customType: "regex",
   fileMatch: ["^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$"],
   matchStrings: [
-    'revision = "(?<currentDigest>[a-f0-9]{40})".*?# renovate: repo=(?<depName>.*?) branch=(?<currentValue>.*?)\\n'
+    'revision = "(?<currentDigest>[a-f0-9]{40})".*?# renovate: repo=(?<depName>.*?) branch=(?<currentValue>.*?)\\n',
   ],
   datasourceTemplate: "git-refs",
 }
@@ -179,9 +191,9 @@ See `./renovate-integration.md` for detailed patterns.
    ```toml
    # renovate: repo=user/repo branch=main
    [".path/to/dependency"]
-       type = "git-repo"
-       url = "https://github.com/user/repo.git"
-       revision = "<commit-sha>"
+   type = "git-repo"
+   url = "https://github.com/user/repo.git"
+   revision = "<commit-sha>"
    ```
 
 #### For packages.yaml:
@@ -193,11 +205,13 @@ See `./renovate-integration.md` for detailed patterns.
 ### 8. Verification Commands
 
 **Preview changes**:
+
 ```bash
 chezmoi diff
 ```
 
 **Check external URLs**:
+
 ```bash
 # Verify latest commit SHA
 gh api repos/USER/REPO/commits/BRANCH --jq .sha
@@ -210,11 +224,13 @@ curl -fsSL https://github.com/USER/REPO/raw/SHA/path/to/file
 ```
 
 **Apply changes**:
+
 ```bash
 chezmoi apply
 ```
 
 **Test external updates**:
+
 ```bash
 chezmoi update --force
 ```
@@ -317,31 +333,35 @@ Use Go templates for platform-specific externals:
 ```toml
 {{ if eq .chezmoi.os "darwin" }}
 [".local/bin/tool-mac"]
-    type = "archive-file"
-    url = "https://github.com/user/tool/releases/download/v1.0.0/tool-darwin-{{ .chezmoi.arch }}.tar.gz"
-    executable = true
+
 {{ else if eq .chezmoi.os "linux" }}
+type = "archive-file"
+url = "https://github.com/user/tool/releases/download/v1.0.0/tool-darwin-{{ .chezmoi.arch }}.tar.gz"
+executable = true
 [".local/bin/tool-linux"]
-    type = "archive-file"
-    url = "https://github.com/user/tool/releases/download/v1.0.0/tool-linux-{{ .chezmoi.arch }}.tar.gz"
-    executable = true
-{{ end }}
+
+{{ end }}type = "archive-file"
+url = "https://github.com/user/tool/releases/download/v1.0.0/tool-linux-{{ .chezmoi.arch }}.tar.gz"
+executable = true
 ```
 
 ## Troubleshooting
 
 **External fails to download**:
+
 - Verify URL accessibility: `curl -fsSL <url>`
 - Check commit SHA exists: `gh api repos/USER/REPO/commits/SHA`
 - Review chezmoi logs: `chezmoi apply -v`
 
 **Renovate not detecting dependency**:
+
 - Verify regex pattern matches your format
 - Check fileMatch glob is correct
 - Test regex: use online regex tester with actual file content
 - Ensure annotations are present if required
 
 **Checksum mismatch**:
+
 - Download file and compute SHA: `curl -fsSL <url> | shasum -a 256`
 - Update checksum in external definition
 - Verify URL points to correct version

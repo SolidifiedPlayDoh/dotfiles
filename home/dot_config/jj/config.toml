@@ -188,7 +188,6 @@ gh pr create --head "$branch" --title "$title" --body "$body" && gh pr merge $br
 
 'recent_work' = 'ancestors(visible_heads(), 3) & mutable()'
 
-
 [git]
 abandon-unreachable-commits = true
 push-new-bookmarks = true

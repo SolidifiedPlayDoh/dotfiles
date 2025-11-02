@@ -29,6 +29,7 @@ home/dot_config/nvim/
 ## Key Features
 
 ### LazyVim Integration
+
 - Automatic plugin management and updates
 - Sensible defaults for modern development
 - Built-in LSP support with mason.nvim
@@ -39,12 +40,14 @@ home/dot_config/nvim/
 ### Custom Plugins
 
 #### Tmux Navigator
+
 **Plugin**: `christoomey/vim-tmux-navigator`
 **Location**: `lua/plugins/tmux-navigator.lua`
 
 Enables seamless navigation between Neovim splits and tmux panes using:
+
 - `Ctrl+h` - Move left
-- `Ctrl+j` - Move down  
+- `Ctrl+j` - Move down
 - `Ctrl+k` - Move up
 - `Ctrl+l` - Move right
 - `Ctrl+\` - Move to previous pane/split
@@ -52,24 +55,29 @@ Enables seamless navigation between Neovim splits and tmux panes using:
 ## Configuration Files
 
 ### init.lua
+
 Simple bootstrap that loads the lazy.nvim configuration:
+
 ```lua
 require("config.lazy")
 ```
 
 ### lua/config/lazy.lua
+
 - Bootstraps lazy.nvim if not installed
 - Configures LazyVim with custom settings
 - Sets up plugin loading from the `plugins/` directory
 - Enables automatic plugin update checking
 
 ### lua/config/ Files
+
 - **keymaps.lua**: Add custom keybindings here
-- **options.lua**: Override Neovim options  
+- **options.lua**: Override Neovim options
 - **autocmds.lua**: Custom autocommands
 - All files are automatically loaded by LazyVim
 
 ### lua/plugins/ Files
+
 Each `.lua` file in this directory is automatically loaded as a plugin specification. Files should return a table with plugin configuration.
 
 ## Adding New Plugins
@@ -92,16 +100,19 @@ return {
 ## Common Workflows
 
 ### Installing/Updating Plugins
+
 - `:Lazy` - Open lazy.nvim interface
 - `:Lazy sync` - Install/update all plugins
 - `:Lazy clean` - Remove unused plugins
 
-### LSP Management  
+### LSP Management
+
 - `:Mason` - Manage LSP servers, formatters, linters
 - `:LspInfo` - Show LSP client information
 - `:Lazy extras` - Install additional language support
 
 ### Key Discovery
+
 - `<leader>` (space by default) - Opens which-key menu
 - `:Telescope keymaps` - Search all keybindings
 - `:LazyVim` - Open LazyVim help and configuration
@@ -109,6 +120,7 @@ return {
 ## Customization
 
 ### Overriding LazyVim Defaults
+
 Create plugin files that override LazyVim's default configurations:
 
 ```lua
@@ -124,6 +136,7 @@ return {
 ```
 
 ### Disabling LazyVim Plugins
+
 ```lua
 return {
   { "plugin/name", enabled = false },
@@ -144,16 +157,20 @@ See `doc/tmux.md` for tmux-side configuration details.
 ## Troubleshooting
 
 ### Plugin Issues
-- `:Lazy log` - View plugin installation logs  
+
+- `:Lazy log` - View plugin installation logs
 - `:Lazy health` - Check plugin health
 - `:checkhealth` - Neovim health check
 
 ### LSP Issues
+
 - `:LspLog` - View LSP logs
 - `:Mason log` - View Mason installation logs
 
 ### Performance
+
 LazyVim is configured for optimal performance with:
+
 - Disabled unused built-in plugins
 - Lazy loading for most plugins
 - Optimized RTP (runtime path)

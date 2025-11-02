@@ -1,6 +1,5 @@
 # Bookmarks
 
-
 ## Introduction
 
 Bookmarks are named pointers to revisions (just like branches are in Git). You
@@ -74,7 +73,7 @@ If you want to know the internals of bookmark tracking, consult the
   example.
 - A **tracking (local) bookmark** is the local bookmark that `jj` tries to keep in
   sync with the tracked remote bookmark. For example, after `jj bookmark track
-  mybookmark@origin`, there will be a local bookmark `mybookmark` that's tracking the
+mybookmark@origin`, there will be a local bookmark `mybookmark` that's tracking the
   remote `mybookmark@origin` bookmark. A local bookmark can track a bookmark of the same
   name on 0 or more remotes.
 
@@ -131,7 +130,6 @@ This command omits local Git-tracking bookmarks by default.
 
 You can see if a specific bookmark is tracked with `jj bookmark list --tracked <bookmark name>`.
 
-
 ### Automatic tracking of bookmarks & `git.auto-local-bookmark` option
 
 There are two situations where `jj` tracks bookmarks automatically. `jj git
@@ -144,7 +142,7 @@ fetched. If desired, you need to manually `jj bookmark track` them. This works
 well for repositories where multiple people work on a large number of bookmarks.
 
 The default can be changed by setting the config `git.auto-local-bookmark = true`.
-Then, `jj git fetch` tracks every *newly fetched* bookmark with a local bookmark.
+Then, `jj git fetch` tracks every _newly fetched_ bookmark with a local bookmark.
 Branches that already existed before the `jj git fetch` are not affected. This
 is similar to Mercurial, which fetches all its bookmarks (equivalent to Git's
 branches) by default.
@@ -154,9 +152,9 @@ branches) by default.
 Currently Jujutsu automatically updates local bookmarks when these conditions are
 met:
 
- * When a commit has been rewritten (e.g, when you rebase) bookmarks and the
-   working-copy will move along with it.
- * When a commit has been abandoned, all associated bookmarks will be deleted.
+- When a commit has been rewritten (e.g, when you rebase) bookmarks and the
+  working-copy will move along with it.
+- When a commit has been abandoned, all associated bookmarks will be deleted.
 
 You could describe the updates as following along the change-id of the
 current bookmark commit, even if it isn't entirely accurate.
@@ -173,7 +171,7 @@ makes several safety checks.
    conflict. Then, you can try `jj git push` again.
 
    If you are familiar with Git, this makes `jj git push` similar to `git
-   push --force-with-lease`.
+push --force-with-lease`.
 
    There are a few cases where `jj git push` will succeed even though the remote
    bookmark is in an unexpected location. These are the cases where `jj git fetch`
@@ -195,9 +193,9 @@ makes several safety checks.
    exist on the remote, there is no problem; `jj git push --allow-new` will
    create the remote bookmark and mark it as tracked.
 
-[^known-issue]: See "A general note on safety" in
+[^known-issue]:
+    See "A general note on safety" in
     <https://git-scm.com/docs/git-push#Documentation/git-push.txt---no-force-with-lease>
-
 
 ## Conflicts
 

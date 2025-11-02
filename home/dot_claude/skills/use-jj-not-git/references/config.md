@@ -2,7 +2,6 @@
 
 These are the config settings available to jj/Jujutsu.
 
-
 ## Config files and TOML
 
 `jj` loads several types of config settings:
@@ -11,14 +10,14 @@ These are the config settings available to jj/Jujutsu.
   `cli/src/config/` directory in `jj`'s source repo.
 
 - The user settings. These can be edited with `jj config edit --user`. User
-settings are located in [the user config files], which can be found with `jj
+  settings are located in [the user config files], which can be found with `jj
 config path --user`.
 
 - The repo settings. These can be edited with `jj config edit --repo` and are
-located in `.jj/repo/config.toml`.
+  located in `.jj/repo/config.toml`.
 
 - The workspace settings. These can be edited with `jj config edit --workspace`
-and are located in `.jj/workspace-config.toml` in the workspace root.
+  and are located in `.jj/workspace-config.toml` in the workspace root.
 
 - Settings [specified in the command-line](#specifying-config-on-the-command-line).
 
@@ -42,6 +41,7 @@ The first thing to remember is that the value of a setting (the part to the
 right of the `=` sign) should be surrounded in quotes if it's a string.
 
 ### Dotted style and headings
+
 In TOML, anything under a heading can be dotted instead. For example,
 `user.name = "YOUR NAME"` is equivalent to:
 
@@ -72,7 +72,6 @@ then use whichever suits you in your config. If you mix dotted keys and headings
 
 That's probably enough TOML to keep you out of trouble but the [syntax guide] is
 very short if you ever need to check.
-
 
 ## User settings
 
@@ -110,15 +109,15 @@ commit_id = "green"
 
 The following colors are available:
 
-* black
-* red
-* green
-* yellow
-* blue
-* magenta
-* cyan
-* white
-* default
+- black
+- red
+- green
+- yellow
+- blue
+- magenta
+- cyan
+- white
+- default
 
 All of them but "default" come in a bright version too, e.g. "bright red". The
 "default" color can be used to override a color defined by a parent style
@@ -200,6 +199,7 @@ concat(
 ```
 
 You can override only the `default_commit_description` value if you like, e.g.:
+
 ```toml
 [template-aliases]
 default_commit_description = '''
@@ -270,9 +270,10 @@ format_signed_off_by_trailer(self)
 ```
 
 Some ready-to-use trailer templates are available for frequently used trailers:
-* `format_signed_off_by_trailer(commit)` creates a "Signed-off-by" trailer
+
+- `format_signed_off_by_trailer(commit)` creates a "Signed-off-by" trailer
   using the committer info.
-* `format_gerrit_change_id_trailer(commit)` creates a "Change-Id" trailer
+- `format_gerrit_change_id_trailer(commit)` creates a "Change-Id" trailer
   suitable to be used with Gerrit. It is based Jujutsu's change id.
 
 Existing trailers are also accessible via `commit.trailers()`.
@@ -308,28 +309,26 @@ it's difficult to read a diff line with many removed/added words, there's a
 threshold to switch to traditional separate-line format. You can also change
 the default number of lines of context shown.
 
-* `max-inline-alternation`: Maximum number of removed/added word alternation to
+- `max-inline-alternation`: Maximum number of removed/added word alternation to
   inline. For example, `<added> ... <added>` sequence has 1 alternation, so the
   line will be inline if `max-inline-alternation >= 1`. `<added> ... <removed>
-  ... <added>` sequence has 3 alternation.
-
-  * `0`: disable inlining, making `--color-words` more similar to `--git`
-  * `1`: inline removes-only or adds-only lines
-  * `2`, `3`, ..: inline up to `2`, `3`, .. alternation
-  * `-1`: inline all lines
+... <added>` sequence has 3 alternation.
+  - `0`: disable inlining, making `--color-words` more similar to `--git`
+  - `1`: inline removes-only or adds-only lines
+  - `2`, `3`, ..: inline up to `2`, `3`, .. alternation
+  - `-1`: inline all lines
 
   The default is `3`.
 
   **This parameter is experimental.** The definition is subject to change.
 
-* `conflict`: How conflicts are processed and displayed.
+- `conflict`: How conflicts are processed and displayed.
+  - `"materialize"`: compare materialized contents (default)
+  - `"pair"`: compare individual pairs
 
-   * `"materialize"`: compare materialized contents (default)
-   * `"pair"`: compare individual pairs
+  **This parameter is experimental.**
 
-   **This parameter is experimental.**
-
-* `context`: Number of lines of context to show in the diff. The default is `3`.
+- `context`: Number of lines of context to show in the diff. The default is `3`.
 
 ```toml
 [diff.color-words]
@@ -341,7 +340,7 @@ context = 3
 
 In git diffs you can change the default number of lines of context shown.
 
-* `context`: Number of lines of context to show in the diff. The default is `3`.
+- `context`: Number of lines of context to show in the diff. The default is `3`.
 
 ```toml
 [diff.git]
@@ -383,7 +382,7 @@ diff-args = ["--color=always", "$left", "$right"]
   not work for viewing diffs.
 
 By default `jj` will invoke external tools with a directory containing the left
-and right sides.  The `diff-invocation-mode` config can change this to file by file
+and right sides. The `diff-invocation-mode` config can change this to file by file
 invocations as follows:
 
 ```toml
@@ -493,7 +492,6 @@ you can add this to your config:
 config_list = "builtin_config_list_detailed"
 ```
 
-
 ## Log
 
 ### Default revisions
@@ -572,6 +570,7 @@ templates.
 - `templates.op_log_node` for operations (with `Operation` keywords)
 
 For example:
+
 ```toml
 [templates]
 log_node = '''
@@ -767,15 +766,15 @@ The built-in pager does not support mouse input.
 
 #### Wrapping config
 
-Wrapping performed by the pager happens *in addition to* any
+Wrapping performed by the pager happens _in addition to_ any
 wrapping that `jj` itself does.
 
 ```toml
 [ui.streampager]
-wrapping = "anywhere"  # wrap at screen edge (default)
-wrapping = "word"      # wrap on word boundaries
-wrapping = "none"      # strip long lines, allow scrolling
-                       # left and right like `less -S`
+wrapping = "anywhere" # wrap at screen edge (default)
+wrapping = "word"     # wrap on word boundaries
+wrapping = "none"     # strip long lines, allow scrolling
+# left and right like `less -S`
 ```
 
 #### Auto-exit, clearing the screen on startup or exit
@@ -788,7 +787,7 @@ features like word-wrapping are disabled.
 [ui.streampager]
 # Do not clear screen on exit. Use a full-screen interface for long
 # output only. Like `less -FX`.
-interface = "quit-if-one-page"  # (default).
+interface = "quit-if-one-page" # (default).
 # Always use a full-screen interface, ask the terminal to clear the
 # screen on exit. Like `less -+FX`.
 interface = "full-screen-clear-output"
@@ -806,7 +805,6 @@ show-ruler = true # (default)
 # Start with the ruler hidden
 show-ruler = false
 ```
-
 
 ### Processing contents to be paged
 
@@ -905,14 +903,19 @@ For GUI editors you possibly need to use a `-w` or `--wait`. Some examples:
 
 ```toml
 [ui]
-editor = "code -w"       # VS Code
-editor = "code.cmd -w"   # VS Code on Windows
-editor = "bbedit -w"     # BBEdit
-editor = "subl -n -w"    # Sublime Text
-editor = "mate -w"       # TextMate
-editor = ["C:/Program Files/Notepad++/notepad++.exe",
-    "-multiInst", "-notabbar", "-nosession", "-noPlugin"] # Notepad++
-editor = "idea --temp-project --wait"   #IntelliJ
+editor = "code -w" # VS Code
+editor = "code.cmd -w" # VS Code on Windows
+editor = "bbedit -w" # BBEdit
+editor = "subl -n -w" # Sublime Text
+editor = "mate -w" # TextMate
+editor = [
+  "C:/Program Files/Notepad++/notepad++.exe",
+  "-multiInst",
+  "-notabbar",
+  "-nosession",
+  "-noPlugin",
+] # Notepad++
+editor = "idea --temp-project --wait" #IntelliJ
 ```
 
 Obviously, you would only set one line, don't copy them all in!
@@ -920,7 +923,7 @@ Obviously, you would only set one line, don't copy them all in!
 ## Editing diffs
 
 The `ui.diff-editor` setting affects the default tool used for editing diffs
-(e.g.  `jj split`, `jj squash -i`). If it is not set, the special value
+(e.g. `jj split`, `jj squash -i`). If it is not set, the special value
 `:builtin` is used. It launches a built-in TUI tool (known as [scm-diff-editor])
 to edit the diff in your terminal.
 
@@ -946,7 +949,7 @@ the following config keys.
 ```toml
 [merge-tools.meld]
 # program = "meld"      # Defaults to the name of the tool if not specified
-program = "/path/to/meld" # May be necessary if `meld` is not in the PATH
+program = "/path/to/meld"                   # May be necessary if `meld` is not in the PATH
 edit-args = ["--newtab", "$left", "$right"]
 ```
 
@@ -966,13 +969,12 @@ Some examples:
 ```toml
 [ui]
 # Use merge-tools.meld.edit-args
-diff-editor = "meld"  # Or `kdiff3`, or `diffedit3`, ...
+diff-editor = "meld" # Or `kdiff3`, or `diffedit3`, ...
 # Specify edit-args inline
 diff-editor = ["/path/to/binary", "--be-helpful", "$left", "$right"]
 # Equivalent to ["binary", "$left", "$right"] arguments by default
 diff-editor = "binary"
 ```
-
 
 ### Experimental 3-pane diff editing
 
@@ -1029,7 +1031,6 @@ With that configuration, you should be able to simply `ssh myhost`.
 
 </details>
 
-
 Setting either `ui.diff-editor = "meld-3"` or `ui.diff-editor = "diffedit3"`
 will result in the diff editor showing 3 panes: the diff on the left and right,
 and an editing pane in the middle. This allow you to see both sides of the
@@ -1081,7 +1082,6 @@ experience, you can follow [instructions from the Wiki] to configure the
 [DirDiff Vim plugin] and/or the [vimtabdiff Python script].
 
 [instructions from the Wiki]: https://github.com/jj-vcs/jj/wiki/Vim,-Neovim#using-vim-as-a-diff-tool
-
 [DirDiff Vim plugin]: https://github.com/will133/vim-dirdiff
 [vimtabdiff Python script]: https://github.com/balki/vimtabdiff
 
@@ -1093,12 +1093,13 @@ by `jj resolve`. For example:
 ```toml
 [ui]
 # Use merge-tools.meld.merge-args
-merge-editor = "meld"  # Or "vscode" or "vscodium" or "kdiff3" or "vimdiff"
+merge-editor = "meld" # Or "vscode" or "vscodium" or "kdiff3" or "vimdiff"
 # Specify merge-args inline
 merge-editor = ["meld", "$left", "$base", "$right", "-o", "$output"]
 ```
 
 The following tools can be used out of the box, as long as they are installed:
+
 - "kdiff3"
 - "meld"
 - "mergiraf"
@@ -1127,12 +1128,23 @@ merge-args = ["$base", "$left", "$right", "-o", "$output", "--auto"]
 merge-args = ["$left", "$base", "$right", "-o", "$output", "--auto-merge"]
 
 [merge-tools.vimdiff]
-merge-args = ["-f", "-d", "$output", "-M",
-    "$left", "$base", "$right",
-    "-c", "wincmd J", "-c", "set modifiable",
-    "-c", "set write"]
+merge-args = [
+  "-f",
+  "-d",
+  "$output",
+  "-M",
+  "$left",
+  "$base",
+  "$right",
+  "-c",
+  "wincmd J",
+  "-c",
+  "set modifiable",
+  "-c",
+  "set write",
+]
 program = "vim"
-merge-tool-edits-conflict-markers = true    # See below for an explanation
+merge-tool-edits-conflict-markers = true # See below for an explanation
 ```
 
 `jj` makes the following substitutions:
@@ -1212,9 +1224,12 @@ provide the name of the file in a command argument.
 
 ```toml
 [fix.tools.clang-format]
-command = ["/usr/bin/clang-format", "--sort-includes", "--assume-filename=$path"]
-patterns = ["glob:'**/*.c'",
-            "glob:'**/*.h'"]
+command = [
+  "/usr/bin/clang-format",
+  "--sort-includes",
+  "--assume-filename=$path",
+]
+patterns = ["glob:'**/*.c'", "glob:'**/*.h'"]
 ```
 
 ### Sort and remove duplicate lines from a file
@@ -1623,8 +1638,8 @@ executable-path = "/path/to/git"
 hunks and merge them. This can be configured to split hunks further into
 word-level hunks.
 
-* `line`: split into line hunks (default)
-* `word`: split into word hunks
+- `line`: split into line hunks (default)
+- `word`: split into word hunks
 
 ```toml
 [merge]
@@ -1639,8 +1654,8 @@ Darcs does. It also means that repeated 3-way merging of multiple trees may give
 different results depending on the order of merging. To turn it off, set
 `same-change = "keep"`.
 
-* `keep`: leave same-change conflict unresolved
-* `accept`: resolve same-change conflict to new value (default)
+- `keep`: leave same-change conflict unresolved
+- `accept`: resolve same-change conflict to new value (default)
 
 ```toml
 [merge]
@@ -1742,10 +1757,12 @@ eol-conversion = "input-output"
 [git-autocrlf]: https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_core_autocrlf
 [gitoxide-is-binary]: https://github.com/GitoxideLabs/gitoxide/blob/073487b38ed40bcd7eb45dc110ae1ce84f9275a9/gix-filter/src/eol/utils.rs#L98-L100
 [git-is-binary]: https://github.com/git/git/blob/f1ca98f609f9a730b9accf24e5558a10a0b41b6c/convert.c#L94-L103
-[^1]: To detect if a file is binary, Jujutsu currently checks if there is NULL
-      byte in the file which is different from the algorithm of
-      [`gitoxide`][gitoxide-is-binary] or [`git`][git-is-binary]. Jujutsu
-      doesn't plan to align the binary detection logic with git.
+
+[^1]:
+    To detect if a file is binary, Jujutsu currently checks if there is NULL
+    byte in the file which is different from the algorithm of
+    [`gitoxide`][gitoxide-is-binary] or [`git`][git-is-binary]. Jujutsu
+    doesn't plan to align the binary detection logic with git.
 
 ## Ways to specify `jj` config: details
 
@@ -1773,10 +1790,10 @@ The files in the `conf.d` directory are loaded in lexicographic order. This allo
 configs to be split across multiple files and combines well
 with [Conditional Variables](#conditional-variables).
 
-| Platform        | Location of `<PLATFORM_SPECIFIC>` dir | Example config file location                              |
-| :-------------- | :------------------------------------ | :-------------------------------------------------------- |
-| Linux and macOS | `$XDG_CONFIG_HOME` or `$HOME/.config` | `/home/alice/.config/jj/config.toml`                      |
-| Windows         | `{FOLDERID_RoamingAppData}`           | `C:\Users\Alice\AppData\Roaming\jj\config.toml`           |
+| Platform        | Location of `<PLATFORM_SPECIFIC>` dir | Example config file location                    |
+| :-------------- | :------------------------------------ | :---------------------------------------------- |
+| Linux and macOS | `$XDG_CONFIG_HOME` or `$HOME/.config` | `/home/alice/.config/jj/config.toml`            |
+| Windows         | `{FOLDERID_RoamingAppData}`           | `C:\Users\Alice\AppData\Roaming\jj\config.toml` |
 
 On macOS, jj used to put the user config in `~/Library/Application Support`,
 and jj will still look there for backwards compatibility purposes; this is
@@ -1817,20 +1834,20 @@ This enables features like:
 Here are some popular editors with TOML schema validation support:
 
 - VS Code
-    - Install [Even Better TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml)
+  - Install [Even Better TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml)
 
 - Neovim/Vim
-    - Use with [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) and [taplo](https://github.com/tamasfe/taplo)
+  - Use with [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) and [taplo](https://github.com/tamasfe/taplo)
 
 - Helix
-    - Install [taplo](https://github.com/tamasfe/taplo)
+  - Install [taplo](https://github.com/tamasfe/taplo)
 
 - JetBrains IDEs (IntelliJ, PyCharm, etc)
-    - Install [TOML](https://plugins.jetbrains.com/plugin/8195-toml) plugin
+  - Install [TOML](https://plugins.jetbrains.com/plugin/8195-toml) plugin
 
 - Emacs
-    - Install [lsp-mode](https://github.com/emacs-lsp/lsp-mode) and [toml-mode](https://github.com/dryman/toml-mode.el)
-    - Configure [taplo](https://github.com/tamasfe/taplo) as the LSP server
+  - Install [lsp-mode](https://github.com/emacs-lsp/lsp-mode) and [toml-mode](https://github.com/dryman/toml-mode.el)
+  - Configure [taplo](https://github.com/tamasfe/taplo) as the LSP server
 
 ### Specifying config on the command-line
 
@@ -1923,7 +1940,7 @@ wip = ["log", "-r", "work"]
 
 #### Available condition keys
 
-* `--when.repositories`: List of paths to match the repository path prefix.
+- `--when.repositories`: List of paths to match the repository path prefix.
 
   Paths should be absolute. Each path component (directory or file name, drive
   letter, etc.) is compared case-sensitively on all platforms. A path starting
@@ -1932,25 +1949,30 @@ wip = ["log", "-r", "work"]
 
   Use `jj root` to see the workspace root directory. Note that the repository path
   is in the main workspace if you're using multiple workspaces with `jj
-  workspace`.
+workspace`.
 
-* `--when.workspaces`: List of paths to match the workspace path prefix.
+- `--when.workspaces`: List of paths to match the workspace path prefix.
 
   The same concerns about the path as for `--when.repositories` applies.
 
   Use `jj root` to see the workspace root directory.
 
-* `--when.commands`: List of subcommands to match.
+- `--when.commands`: List of subcommands to match.
 
   Subcommands are space-separated and matched by prefix.
 
   ```toml
-  --when.commands = ["file"]        # matches `jj file show`, `jj file list`, etc
-  --when.commands = ["file show"]   # matches `jj file show` but *NOT* `jj file list`
-  --when.commands = ["file", "log"] # matches `jj file` *OR* `jj log` (or subcommand of either)
+  --when.commands = ["file"] # matches `jj file show`, `jj file list`, etc
+  --when.commands = [
+    "file show",
+  ] # matches `jj file show` but *NOT* `jj file list`
+  --when.commands = [
+    "file",
+    "log",
+  ] # matches `jj file` *OR* `jj log` (or subcommand of either)
   ```
 
-* `--when.platforms`: List of platforms to match.
+- `--when.platforms`: List of platforms to match.
 
   The values are defined by both
   [`std::env::consts::FAMILY`](https://doc.rust-lang.org/std/env/consts/constant.FAMILY.html)
@@ -1958,7 +1980,12 @@ wip = ["log", "-r", "work"]
   [`std::env::consts::OS`](https://doc.rust-lang.org/std/env/consts/constant.OS.html).
 
   ```toml
-  --when.platforms = ["windows"]            # matches only Windows
-  --when.platforms = ["linux", "freebsd"]   # matches Linux or and FreeBSD, but not macOS
-  --when.platforms = ["unix"]               # matches anything in the Unix family (Linux, FreeBSD, macOS, etc.)
+  --when.platforms = ["windows"] # matches only Windows
+  --when.platforms = [
+    "linux",
+    "freebsd",
+  ] # matches Linux or and FreeBSD, but not macOS
+  --when.platforms = [
+    "unix",
+  ] # matches anything in the Unix family (Linux, FreeBSD, macOS, etc.)
   ```

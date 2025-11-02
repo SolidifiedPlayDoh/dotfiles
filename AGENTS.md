@@ -9,6 +9,7 @@ Personal dotfiles managed by Chezmoi across macOS, Linux, and containers. Priori
 ## Installation and Setup
 
 ### Initial Installation
+
 ```bash
 # Clone and install dotfiles
 git clone https://github.com/ivy/dotfiles.git && cd dotfiles && ./install.sh
@@ -22,6 +23,7 @@ REINSTALL_TOOLS=true ./install.sh
 ```
 
 ### Environment Variables
+
 - `REINSTALL_TOOLS=true` - Force tool reinstallation
 - `BIN_DIR=/custom/path` - Binary install dir (default: `~/.local/bin`)
 - `DEBUG=1` - Debug output
@@ -30,13 +32,14 @@ REINSTALL_TOOLS=true ./install.sh
 ## Subagent Routing: Packages, Images, Versions
 
 **Invoke Package Manager subagent before editing:**
+
 - Docker Compose (image tags/digests)
 - Devcontainer images/features
 - Mise tool declarations (.mise.toml, home/dot_config/mise/config.toml)
 - Homebrew/cask/mas packages
 - Python requirements (home/dot_config/dotfiles/requirements.txt)
 - Chezmoi externals (home/.chezmoiexternal.toml.tmpl)
-- Version manifests (home/dot_config/dotfiles/*.toml)
+- Version manifests (home/dot_config/dotfiles/\*.toml)
 - GitHub Actions versions/digests
 
 Why: Enforces immutable pins (versions/digests/SHAs) and maintains Renovate automation. Direct edits risk drift, broken automation, or security issues. See doc/renovate.md.
@@ -44,12 +47,14 @@ Why: Enforces immutable pins (versions/digests/SHAs) and maintains Renovate auto
 ## Architecture
 
 ### Chezmoi Structure
+
 - **Source**: Repository root (`sourceDir = "{{ .chezmoi.workingTree }}"`)
 - **Templates**: `.tmpl` files processed by template engine
 - **Scripts**: `run_onchange_*` execute on content change
 - **Dotfiles**: `dot_` prefix becomes `.` (e.g., `dot_zshrc` → `.zshrc`)
 
 ### Key Directories
+
 - `home/` - Managed dotfiles/config
 - `home/dot_config/` - XDG config
 - `home/dot_local/bin/` - User binaries
@@ -58,6 +63,7 @@ Why: Enforces immutable pins (versions/digests/SHAs) and maintains Renovate auto
 - `bin/` - Utility scripts
 
 ### Templates
+
 Go text/template syntax. Key variables: `.chezmoi.os`, `.chezmoi.workingTree`, `.packages.darwin.*`
 
 ## CRITICAL: Edit Source Files Only
@@ -85,14 +91,30 @@ Uses BATS with `test_helper.bash` utilities. Validates templates and script synt
 4. Commit with Conventional Commits: `feat:`, `fix:`, `chore:`
 
 ### Adding Dotfiles
+
 - Place in `home/` with `dot_` prefix
 - Use `dot_config/` for XDG dirs
 - Use `private_` for secrets
 
 ### Script Guidelines
+
 - Idempotent with error handling (`set -o errexit -o nounset`)
 - Support DEBUG variable
 - Check tool availability first
+
+### Node.js Package Management
+
+- **ALWAYS use `bun` for package operations** (install, add, remove, run)
+- Never use `npm` or `yarn` commands
+- Examples: `bun install`, `bun add <package>`, `bun run <script>`
+
+### Formatting
+
+- **Prettier** is managed via root `package.json` (not mise) to enable plugin support
+- Run `bun run format` to format all files
+- Run `bun run format:check` to verify formatting
+- Configuration in `.prettierrc.json`
+- Exclusions in `.prettierignore` (especially `.tmpl` files)
 
 ## Security
 
@@ -103,6 +125,7 @@ Uses BATS with `test_helper.bash` utilities. Validates templates and script synt
 ## Troubleshooting
 
 **Common Issues**:
+
 - Tools not in PATH: Add `~/.local/bin` to PATH
 - Template errors: Check syntax/variables
 - Permissions: Run installer with proper permissions

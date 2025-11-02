@@ -79,19 +79,19 @@ Using Renovate’s `customManagers` to teach it how to parse and update versions
 
 Defined in `renovate.json5`:
 
-1) CLI versions (GitHub Releases)
+1. CLI versions (GitHub Releases)
 
 - File: `home/dot_config/dotfiles/cli-versions.toml`
 - Pattern: `^cosign\s*=\s*"(?<currentValue>v?[^\"]+)"`
 - Datasource: `github-releases`, `depNameTemplate: sigstore/cosign`
 
-2) Aqua‑prefixed tools in mise TOML (GitHub Releases)
+2. Aqua‑prefixed tools in mise TOML (GitHub Releases)
 
 - Files: `.mise.toml`, `home/dot_config/mise/config.toml`
 - Pattern: `"aqua:(?<depName>[^/]+/[^\"]+)"\s*=\s*"(?<currentValue>v?[^\"]+)"`
 - Datasource: `github-releases` (e.g., `aqua:mikefarah/yq` → `mikefarah/yq`)
 
-3) Optional Go/Node tool manifests (present if we add these files later)
+3. Optional Go/Node tool manifests (present if we add these files later)
 
 - Go tools file: `home/dot_config/go-tools/tools.txt`
   - Pattern: `^(?<depName>[^\s@]+)@(?<currentValue>v?[^\s#]+)`
@@ -101,7 +101,7 @@ Defined in `renovate.json5`:
   - Pattern: `^(?<depName>[^@\n]+)@(?<currentValue>[^\n#]+)`
   - Datasource: `npm`
 
-4) Chezmoi externals pinned to SHAs (Git Refs)
+4. Chezmoi externals pinned to SHAs (Git Refs)
 
 - File: `home/.chezmoiexternal.toml.tmpl`
 - Datasource: `git-refs` with `currentValueTemplate: "master"` (we track the upstream default branch and replace our pinned SHA when the branch moves).
@@ -219,4 +219,3 @@ gh api repos/gpakosz/.tmux/commits/master --jq .sha
 - When adding a new external or bespoke versions file, add a matching `customManagers` rule.
 - Keep tag+digest for images: readable tag for humans, digest for reproducibility.
 - Use the gh commands above to sanity‑check SHAs/tags when reviewing Renovate PRs.
-

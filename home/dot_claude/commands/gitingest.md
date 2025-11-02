@@ -1,6 +1,7 @@
-Use gitingest to fetch and contextualize a GitHub repository for future reference based on $ARGUMENTS. 
+Use gitingest to fetch and contextualize a GitHub repository for future reference based on $ARGUMENTS.
 
 Handle $ARGUMENTS in this order:
+
 1. **Full URL**: If it's a complete GitHub URL, use directly
 2. **user/repo format**: If it contains a slash, construct `https://github.com/$ARGUMENTS`
 3. **Single name**: If it's just a repository name (like "rails"), try to identify the canonical/most popular repository:
@@ -8,6 +9,7 @@ Handle $ARGUMENTS in this order:
    - If ambiguous, ask the user to clarify which repository they want
 
 Steps:
+
 1. Run `mkdir -p docs/reference/` to ensure the output directory exists
 2. Run `gitingest -o docs/reference/<user>-<repo_name>.txt <repo_url>` to fetch the complete codebase
 3. Read the generated documentation file to understand the repository

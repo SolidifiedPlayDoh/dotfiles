@@ -91,7 +91,6 @@ packages:
       - amethyst
       - keymapp
 
-
       # Security
       - 1password
       - 1password-cli

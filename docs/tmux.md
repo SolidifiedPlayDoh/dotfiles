@@ -13,16 +13,18 @@ This dotfiles repository includes a comprehensive tmux configuration based on [g
 ## Architecture
 
 ### External Configuration
+
 The base tmux configuration is managed as a Chezmoi external in `.chezmoiexternal.toml.tmpl`:
 
 ```toml
 [".tmux"]
-    type = "git-repo"
-    url = "https://github.com/gpakosz/.tmux.git"
-    refreshPeriod = "24h"
+type = "git-repo"
+url = "https://github.com/gpakosz/.tmux.git"
+refreshPeriod = "24h"
 ```
 
 This automatically:
+
 - Clones the gpakosz/.tmux repository to `~/.tmux/`
 - Updates the configuration daily
 - Provides a solid foundation with modern tmux features
@@ -40,44 +42,54 @@ The main config (`~/.tmux.conf`) is a symlink managed by Chezmoi that points to 
 ## Custom Features
 
 ### Vi Mode Navigation
+
 **Location**: `home/dot_tmux.conf.local`
 
 #### Copy Mode
+
 - `setw -g mode-keys vi` - Enables vi-style copy mode
 - `v` - Begin selection in copy mode
 - `y` - Yank selection and exit copy mode
 
 #### Pane Navigation (Prefix-based)
+
 - `prefix + h/j/k/l` - Navigate between panes
 - `prefix + H/J/K/L` - Resize panes (with repeat)
 
 ### Seamless Neovim Integration
+
 **Plugin Integration**: Works with `christoomey/vim-tmux-navigator`
 
 #### Smart Navigation
+
 The configuration includes intelligent vim detection:
+
 ```bash
 is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
     | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?)(diff)?$'"
 ```
 
 #### Navigation Keybindings
+
 - `Ctrl+h` - Move left (tmux pane or vim split)
-- `Ctrl+j` - Move down (tmux pane or vim split)  
+- `Ctrl+j` - Move down (tmux pane or vim split)
 - `Ctrl+k` - Move up (tmux pane or vim split)
 - `Ctrl+l` - Move right (tmux pane or vim split)
 - `Ctrl+\` - Move to previous pane/split
 
 These bindings work seamlessly:
+
 - **In Neovim**: Navigate between vim splits
 - **Outside Neovim**: Navigate between tmux panes
 - **Copy Mode**: Navigate with same keys
 - **Fallback**: Prefix-based navigation always available
 
 ### Custom Keybindings
+
 **Location**: `home/dot_tmux.conf.local`
 
 #### Claude Code Integration
+
 - `prefix + e` - Open Claude Code in dotfiles directory
   - Overrides the default gpakosz "edit config" binding
   - Opens a new tmux window named "dotfiles"
@@ -85,7 +97,9 @@ These bindings work seamlessly:
   - Launches Claude Code for AI-assisted dotfiles management
 
 ### Version Compatibility
+
 The configuration handles different tmux versions for the `Ctrl+\` binding:
+
 - **tmux < 3.0**: Uses single backslash escape
 - **tmux >= 3.0**: Uses double backslash escape
 
@@ -94,18 +108,21 @@ The configuration handles different tmux versions for the `Ctrl+\` binding:
 The external base configuration provides:
 
 ### Visual Enhancements
+
 - Modern status line with system information
 - Battery status and system load indicators
 - Window and pane numbering
 - Custom color schemes
 
-### Productivity Features  
+### Productivity Features
+
 - Smart pane splitting
 - Window and session management
 - Mouse support toggle
 - Copy mode improvements
 
 ### Built-in Keybindings
+
 - `prefix + e` - ~~Edit local config and reload~~ **Overridden**: Open Claude Code in dotfiles directory
 - `prefix + r` - Reload configuration
 - `prefix + m` - Toggle mouse mode
@@ -114,13 +131,16 @@ The external base configuration provides:
 ## Installation & Management
 
 ### Initial Setup
+
 The tmux configuration is installed automatically with the dotfiles:
+
 ```bash
 # Installs both external config and local overrides
 chezmoi apply
 ```
 
 ### Configuration Updates
+
 ```bash
 # Update external gpakosz configuration
 chezmoi update
@@ -130,6 +150,7 @@ chezmoi apply
 ```
 
 ### Runtime Management
+
 ```bash
 # Edit local config (opens in $EDITOR and reloads)
 prefix + e
@@ -144,6 +165,7 @@ tmux list-keys
 ## Customization
 
 ### Adding Custom Settings
+
 Edit `home/dot_tmux.conf.local` in your dotfiles repository:
 
 ```bash
@@ -157,6 +179,7 @@ set -g status-right "#{?window_bigger,[#{window_width}x#{window_height}],} %H:%M
 ```
 
 ### Plugin Management
+
 The gpakosz configuration supports TPM (Tmux Plugin Manager). Add plugins to your local config:
 
 ```bash
@@ -169,6 +192,7 @@ run '~/.tmux/plugins/tpm/tpm'
 ```
 
 ### Overriding Base Settings
+
 Any setting in the local config will override the base gpakosz configuration:
 
 ```bash
@@ -176,7 +200,7 @@ Any setting in the local config will override the base gpakosz configuration:
 set -g base-index 0
 setw -g pane-base-index 0
 
-# Change split keybindings  
+# Change split keybindings
 bind | split-window -h
 bind - split-window -v
 ```
@@ -184,16 +208,19 @@ bind - split-window -v
 ## Integration with Development Workflow
 
 ### Neovim Integration
+
 - Seamless navigation between vim splits and tmux panes
 - Consistent keybindings across both environments
 - Copy mode navigation matches vim movement
 
 ### Shell Integration
+
 - Works with any shell (zsh, bash, fish)
 - Preserves shell history across sessions
 - Smart window/pane naming
 
 ### Session Management
+
 ```bash
 # Create named session
 tmux new-session -s development
@@ -208,16 +235,19 @@ tmux list-sessions
 ## Troubleshooting
 
 ### Navigation Issues
+
 - Ensure Neovim has `vim-tmux-navigator` plugin installed
 - Check tmux version compatibility for `Ctrl+\` binding
 - Verify `ps` command output format on your system
 
-### Configuration Problems  
+### Configuration Problems
+
 - Use `prefix + r` to reload after changes
 - Check syntax with: `tmux -f ~/.tmux.conf.local -T`
 - View logs: `tmux show-messages`
 
 ### External Update Issues
+
 ```bash
 # Force refresh external configuration
 chezmoi update --force
@@ -229,8 +259,9 @@ chezmoi status
 ## Performance Considerations
 
 The configuration is optimized for:
+
 - **Lazy Loading**: Features load on demand
-- **Minimal Overhead**: Efficient status line updates  
+- **Minimal Overhead**: Efficient status line updates
 - **Smart Detection**: Vim detection uses minimal resources
 - **Caching**: External updates only every 24 hours
 
