@@ -27,6 +27,9 @@ shell-integration-features = cursor,sudo,title
 # Quick Terminal (macOS)
 keybind = global:option+grave_accent=toggle_quick_terminal
 
+# OS
+mouse-hide-while-typing = true
+
 # Basic Keybindings
 keybind = cmd+d=new_split:right
 keybind = cmd+shift+d=new_split:down
@@ -40,5 +43,7 @@ keybind = shift+enter=text:\x1b\r
 cursor-invert-fg-bg = true
 
 # Theme
-theme = light:Catppuccin Latte,dark:Catppuccin Mocha
+theme = dark:Catppuccin Mocha,light:Catppuccin Latte
+unfocused-split-opacity = 0.93
 
+config-file = config-keybind
