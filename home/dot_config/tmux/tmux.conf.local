@@ -12,6 +12,7 @@
 # These must be set early to ensure proper sourcing of config files
 set-environment -g TMUX_CONF "$HOME/.config/tmux/tmux.conf"
 set-environment -g TMUX_CONF_LOCAL "$HOME/.config/tmux/tmux.conf.local"
+set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.config/tmux/plugins"
 
 
 # -- bindings ------------------------------------------------------------------
@@ -436,9 +437,22 @@ tmux_conf_uninstall_plugins_on_reload=true
 # visit https://github.com/tmux-plugins for available plugins
 #set -g @plugin 'tmux-plugins/tmux-copycat'
 #set -g @plugin 'tmux-plugins/tmux-cpu'
-#set -g @plugin 'tmux-plugins/tmux-resurrect'
-#set -g @plugin 'tmux-plugins/tmux-continuum'
-#set -g @continuum-restore 'on'
+
+# Session persistence with resurrect and continuum
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+# Auto-restore sessions on tmux start
+set -g @continuum-restore 'on'
+
+# Save interval in minutes (default: 15)
+set -g @continuum-save-interval '15'
+
+# XDG-compliant data directory for session saves
+set -g @resurrect-dir '~/.local/share/tmux/resurrect'
+
+# Restore additional programs (~ prefix means restore with exact command)
+set -g @resurrect-processes 'ssh ~nvim ~vim'
 
 
 # -- custom variables ----------------------------------------------------------
