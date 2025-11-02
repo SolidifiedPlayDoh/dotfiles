@@ -212,6 +212,7 @@ editor = "nvim"
 pager = "delta"
 paginate = "auto"
 show-cryptographic-signatures = true
+diff-editor = ":builtin"
 
 [user]
 name = "Martin Emde"
