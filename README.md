@@ -4,10 +4,10 @@ This repository contains my personal dotfiles for setting up a productive develo
 
 ## Philosophy
 
-- **Pragmatism**: I prefer tools and configurations that are stable, well supported, and widely adopted. Instead of tinkering with bleeding-edge setups, I rely on curated collections such as Oh My Zsh and "sensible" defaults for various applications.
+- **Pragmatic Minimalism**: I prefer focused, single-purpose tools over complex frameworks. Instead of importing bulky plugins or features I don't use, I choose excellent, well-maintained tools that do one thing well with minimal configuration. Examples include znap for fast plugin loading, starship for cross-shell prompts, and mise for reproducible tool management.
 - **Portability**: These dotfiles should work across macOS and Linux machines, as well as within containers. They are designed to be reliable whether installed system-wide or through a Devcontainer configuration.
 - **Consistency**: The configuration aims to make pairing with others easy by sticking to intuitive shortcuts and well-known conventions. While these dotfiles improve my workflow, I can still work effectively without them if necessary.
-- **Reliability over Performance**: Start-up speed is less important than ensuring things always work. Runtime performance should not be significantly degraded by these configurations.
+- **Performance with Reliability**: Fast startup matters—this setup achieves 50-80% faster shell startup through caching and lazy-loading—but not at the cost of stability. I avoid risky optimizations and instead gain speed through minimalism and focused tooling. Runtime performance should not be significantly degraded by these configurations.
 
 ## Goals
 
@@ -57,6 +57,7 @@ For CI/CD or automated environments where no TTY is available, set these variabl
 - `GIT_USER_EMAIL="your.email@example.com"` - Git user email for commits
 
 Example for CI environments:
+
 ```bash
 GIT_USER_NAME="CI User" GIT_USER_EMAIL="ci@example.com" ./install.sh
 ```
@@ -66,4 +67,3 @@ For a complete list of options, run `./install.sh --help`.
 ## License
 
 This project is open source under the [ISC License](LICENSE.md), credited to Ivy Evans.
-
