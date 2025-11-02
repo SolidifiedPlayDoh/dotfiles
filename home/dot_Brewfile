@@ -9,6 +9,7 @@ brew 'openssl@3' # crypto library
 brew 'readline' # line editing library
 brew 'awscli' # AWS CLI
 brew 'bat' # cat replacement
+brew 'bat-extras' # bat extensions
 brew 'bison' # parser generator
 brew 'node' # Node.js runtime
 brew 'ccusage'  # CPU monitor
