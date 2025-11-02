@@ -2,21 +2,32 @@
 # Zsh Aliases
 # ============================================================================
 
+alias -s md="glow --pager" # Suffix aliases - automatically open files by extension
+alias ...="cd .. ; cd ..; eza --icons"
+alias ..="cd ..; eza --icons"
 alias b='bundle exec'
 alias cat='bat'
 alias cz='chezmoi'
+alias dc="docker compose"
 alias df='duf'
 alias dircolors='gdircolors'
 alias du='dust'
+alias g='git'
+alias git-https='git remote set-url origin "$(git remote get-url origin | sed -E '\''s,^git@([^:]*):/*(.*)$,https://\1/\2,'\'')"'
+alias git-ssh='git remote set-url origin "$(git remote get-url origin | sed -E '\''s,^https://([^/]*)/(.*)$,git@\1:\2,'\'')"'
 alias grep='rg'
-alias l="eza --icons"
-alias la='eza -la --git --icons --color-scale --group-directories-first'
-alias ll='eza -l --git --icons --color-scale --group-directories-first'
-alias ls='eza --icons --group-directories-first'
+alias histogram='sort | uniq -c | sort -r'
+alias l='eza --icons'
+alias la='eza -la --git --icons --color-scale'
 alias less=bat
+alias ll='eza -l --git --icons --color-scale'
+alias ls='eza --icons --group-directories-first'
 alias make='colormake'
+alias man='batman'
+alias mux='tmux-named'
+alias rc='bin/rails console'
 alias top='htop'
-alias tree='eza --icons=always --tree'
+alias tree='eza --icons --tree'
 alias vi='nvim'
 alias vim='nvim'
 
@@ -28,24 +39,6 @@ alias codex='OPENAI_API_KEY=$(op read "op://Personal/openai-codex/credential") c
 alias claude-api='ANTHROPIC_API_KEY=$(op read "op://Personal/claude-code/credential") command claude'
 {{- end }}
 
-# Suffix aliases - automatically open files by extension
-alias -s md="glow --pager"
-alias ...="cd .. ; cd ..; eza --icons"
-alias ..="cd ..; eza --icons"
-alias dc="docker compose"
-alias git-https='git remote set-url origin "$(git remote get-url origin | sed -E '\''s,^git@([^:]*):/*(.*)$,https://\1/\2,'\'')"'
-alias git-ssh='git remote set-url origin "$(git remote get-url origin | sed -E '\''s,^https://([^/]*)/(.*)$,git@\1:\2,'\'')"'
-alias histogram="sort | uniq -c | sort -r"
-alias l="eza --icons"
-alias la="eza -la --git --icons"
-alias less=bat
-alias ll="eza -ll --git --icons"
-alias man="batman"
-alias mux="tmux-named"
-alias rc="bin/rails console"
-alias tree="eza --tree"
-alias unbz2="bunzip2"
-alias ungzip="gzip -d"
 
 
 # vi: ft=zsh
