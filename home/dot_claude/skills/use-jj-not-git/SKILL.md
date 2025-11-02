@@ -203,8 +203,6 @@ See `references/git-to-jj-commands.md` for comprehensive mapping.
 
 ## Configuration
 
-### Essential Config
-
 ```toml
 [user]
 name = "Your Name"
