@@ -11,13 +11,11 @@ source ~/.zshenv
 # ----------------------------------------------------------------------------
 # LLM Agent Detection - MUST BE EARLY
 # ----------------------------------------------------------------------------
-{{- if lookPath "envsense" }}
-if envsense check agent >/dev/null 2>&1; then
+if command -v envsense >/dev/null 2>&1 && envsense check agent >/dev/null 2>&1; then
   export LLM_AGENT_MODE=1
   [[ -f "$XDG_CONFIG_HOME/zsh/llm.zsh" ]] && source "$XDG_CONFIG_HOME/zsh/llm.zsh"
   return  # Skip all human-friendly configuration below
 fi
-{{- end }}
 
 # ----------------------------------------------------------------------------
 # Load Znap Plugin Manager
@@ -55,27 +53,14 @@ if [[ -z "${SKIP_ZSH_AUTOSUGGESTIONS:-}" ]]; then
 fi
 
 # ----------------------------------------------------------------------------
+# Completion System
+# ----------------------------------------------------------------------------
+source "$XDG_CONFIG_HOME/zsh/completions.zsh"
+
+# ----------------------------------------------------------------------------
 # Tool Integrations
 # ----------------------------------------------------------------------------
-{{- if lookPath "mise" }}
-# mise manages its own hooks, run directly (don't cache)
-eval "$(mise activate zsh)"
-{{- end }}
-
-{{- if lookPath "atuin" }}
-# atuin can be cached for faster startup
-znap eval atuin 'atuin init zsh'
-{{- end }}
-
-{{- if lookPath "starship" }}
-# starship can be cached for faster startup
-znap eval starship 'starship init zsh'
-{{- end }}
-
-{{- if lookPath "zoxide" }}
-# zoxide can be cached for faster startup
-znap eval zoxide 'zoxide init zsh'
-{{- end }}
+source "$XDG_CONFIG_HOME/zsh/tools.zsh"
 
 # ----------------------------------------------------------------------------
 # Zsh Options
@@ -109,23 +94,6 @@ function zle-line-init {
 zle -N zle-line-init
 
 # ----------------------------------------------------------------------------
-# Completion System
-# ----------------------------------------------------------------------------
-# Add custom functions and completions directories to fpath
-fpath=(
-  "$XDG_CONFIG_HOME/zsh/functions"
-  "$XDG_CONFIG_HOME/zsh/completions"
-  "${fpath[@]}"
-)
-
-# Autoload custom functions
-autoload -Uz c
-
-# Initialize completion system
-autoload -Uz compinit
-compinit
-
-# ----------------------------------------------------------------------------
 # History Configuration
 # ----------------------------------------------------------------------------
 HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
@@ -144,95 +112,7 @@ setopt HIST_VERIFY
 # ----------------------------------------------------------------------------
 # Aliases
 # ----------------------------------------------------------------------------
-# Enhanced tool aliases
-{{- if lookPath "bat" }}
-alias cat='bat'
-{{- end }}
-{{- if lookPath "duf" }}
-alias df='duf'
-{{- end }}
-{{- if lookPath "gdircolors" }}
-alias dircolors='gdircolors'
-{{- end }}
-{{- if lookPath "dust" }}
-alias du='dust'
-{{- end }}
-{{- if lookPath "hub" }}
-alias git='hub'
-{{- end }}
-{{- if lookPath "eza" }}
-alias ls='eza --icons=always --group-directories-first'
-alias ll='eza --icons=always --long --group-directories-first'
-alias la='eza --icons=always --long --all --group-directories-first'
-alias tree='eza --icons=always --tree'
-{{- else if lookPath "gls" }}
-alias ls='gls'
-{{- end }}
-{{- if lookPath "colormake" }}
-alias make='colormake'
-{{- end }}
-{{- if lookPath "htop" }}
-alias top='htop'
-{{- end }}
-{{- if lookPath "nvim" }}
-alias vi='nvim'
-alias vim='nvim'
-{{- else if lookPath "vim" }}
-alias vi='vim'
-{{- end }}
-
-# Chezmoi shortcut
-alias cz='chezmoi'
-
-# Bundler shortcut
-alias b='bundle exec'
-
-# Colorized commands
-alias grep='grep -Hn --color=auto'
-
-# 1Password-authenticated commands
-{{- if and (lookPath "op") (lookPath "codex") }}
-alias codex='OPENAI_API_KEY=$(op read "op://Personal/openai-codex/credential") command codex'
-{{- end }}
-{{- if and (lookPath "op") (lookPath "claude") }}
-alias claude-api='ANTHROPIC_API_KEY=$(op read "op://Personal/claude-code/credential") command claude'
-{{- end }}
-
-# Suffix aliases - automatically open files by extension
-alias -s md="glow --pager"
-
-# ----------------------------------------------------------------------------
-# Custom Functions
-# ----------------------------------------------------------------------------
-# Reload shell function - re-execs the exact same zsh binary
-function reload! {
-  local zsh_path
-
-  # Method 1: Linux - /proc/$$/exe symlinks to the actual executable
-  if [[ -r /proc/$$/exe ]]; then
-    zsh_path=$(readlink /proc/$$/exe)
-  # Method 2: macOS/BSD - Use lsof to find the binary
-  elif command -v lsof >/dev/null && zsh_path=$(lsof -p $$ -Fn | awk '/^n.*zsh$/{print substr($0,2); exit}'); then
-    :  # zsh_path already set
-  # Method 3: Non-login shells - $0 contains the actual path
-  elif [[ $0 != -* ]]; then
-    zsh_path=$0
-  # Method 4: Login shell detection
-  elif [[ $0 == -* ]]; then
-    if command -v getent >/dev/null; then
-      zsh_path=$(getent passwd "$USER" | cut -d: -f7)
-    elif command -v dscl >/dev/null; then
-      zsh_path=$(dscl . -read "/Users/$USER" UserShell | awk '{print $2}')
-    else
-      zsh_path=$SHELL
-    fi
-  # Method 5: Final fallback
-  else
-    zsh_path=$SHELL
-  fi
-
-  exec "$zsh_path" "$@"
-}
+source "$XDG_CONFIG_HOME/zsh/aliases.zsh"
 
 # ----------------------------------------------------------------------------
 # Zsh Syntax Highlighting (MUST BE LOADED LAST)

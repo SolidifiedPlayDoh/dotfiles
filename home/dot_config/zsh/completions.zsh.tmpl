@@ -1,0 +1,25 @@
+# ============================================================================
+# Completion System Configuration
+# ============================================================================
+
+# Add custom functions and completions directories to fpath
+fpath=(
+  "$XDG_CONFIG_HOME/zsh/functions"
+  "$XDG_CONFIG_HOME/zsh/completions"
+  "${fpath[@]}"
+)
+
+# Autoload custom functions
+autoload -Uz c reload!
+
+# Initialize completion system
+autoload -Uz compinit
+compinit
+
+# Load dynamic tool completions
+{{- if lookPath "jj" }}
+# jj - version control
+source <(jj util completion zsh)
+{{- end }}
+
+# vi: ft=zsh
