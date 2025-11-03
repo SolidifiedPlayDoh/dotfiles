@@ -229,13 +229,13 @@ gh pr create --head "$branch" --title "$title" --body "$body" && gh pr merge $br
 "node wip" = { fg = "yellow" }
 "node normal" = { bold = false }
 
-
 [templates]
+# I like this symbol ◉ for @, but it's hard to see
 log_node = '''
 label("node",
   coalesce(
     if(!self, label("elided", "⇋")),
-    if(current_working_copy, label("working_copy", "◉")),
+    if(current_working_copy, label("working_copy", "@")),
     if(conflict, label("conflict", "✕")),
     if(immutable, label("immutable", "◆")),
     if(description.starts_with("wip: "), label("wip", "◠")),
