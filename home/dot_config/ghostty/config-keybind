@@ -25,12 +25,12 @@ keybind = ctrl+s>z=toggle_split_zoom
 
 # Split management (tmux-inspired)
 keybind = ctrl+s>q=close_surface
-keybind = ctrl+s>=equalize_splits
+keybind = ctrl+s>==equalize_splits
 
 # Tab management enhancements
 keybind = ctrl+s>tab=last_tab
-keybind = ctrl+s>shift+<>move_tab:-1
-keybind = ctrl+s>shift+>>move_tab:1
+keybind = ctrl+s>shift+<=move_tab:-1
+keybind = ctrl+s>shift+>=move_tab:1
 
 # Window/tab overview
 keybind = ctrl+s>w=toggle_tab_overview
@@ -56,7 +56,9 @@ keybind = ctrl+s>]=jump_to_prompt:1
 
 # Screen management
 keybind = ctrl+s>ctrl+l=clear_screen
-keybind = ctrl+s>ctrl+comma=reload_config
+keybind = ctrl+s>,=reload_config
 
 # Quick access
 keybind = ctrl+s>?=toggle_command_palette
+
+# vim: ft=toml
