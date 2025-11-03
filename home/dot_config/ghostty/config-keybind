@@ -1,40 +1,66 @@
+# Use tmux style prefix shortcuts to issue ghostty commands.
+#
+# Prefer sequences of commands rather than chords.
+# Prefix Key: `ctrl+s` avoids conflicts with tmux (`ctrl+b`, `ctrl+a`)
+#
+# Use VIm movements as paradigm - `h/j/k/l`, `gg`/`G`, `u`/`d`, `[`/`]`
+#
+# ghostty +list-actions                 # List all available actions
+# ghostty +show-config                  # Show current config
+# ghostty +show-config --default        # Show defaults
+# ghostty +show-config --default --docs # with docs
+#
+# Reference: https://ghostty.org/docs/config
+#
+# [LLM friendly config reference](https://raw.githubusercontent.com/ghostty-org/website/refs/heads/main/docs/config/reference.mdx)
+# [LLM friendly keybind actions](https://raw.githubusercontent.com/ghostty-org/website/refs/heads/main/docs/config/keybind/reference.mdx)
 
+## Unbind hardcoded physical keys that break in dvorak
+keybind = super+equal=unbind
+keybind = super+plus=unbind
+keybind = super+bracket_left=unbind
+keybind = super+bracket_right=unbind
+keybind = super+shift+bracket_left=unbind
+keybind = super+shift+bracket_right=unbind
+
+## Rebind default actions but with regular unicode points
+keybind = super+[=goto_split:previous
+keybind = super+]=goto_split:next
+keybind = super+shift+[=previous_tab
+keybind = super+shift+]=next_tab
+keybind = super+==increase_font_size:1
+keybind = super++=increase_font_size:1
+keybind = super+-=deccrease_font_size:1
+
+## Make font changes across all surfaces
+keybind = super+alt++=all:increase_font_size:1
+keybind = super+alt+-=all:deccrease_font_size:1
+keybind = super+alt+0=all:reset_font_size
+
+# Quick Terminal (macOS)
+keybind = global:option+grave_accent=toggle_quick_terminal
+
+# Basic Keybindings
+keybind = super+w=close_tab
+
+## Shift+Enter for Claude Code
+keybind = shift+enter=text:\x1b\r
+
+######
+# Tmux inspired shortcuts
+
+## Window/Tab Management
 keybind = ctrl+s>c=new_tab
-keybind = ctrl+s>h=goto_split:left
-keybind = ctrl+s>j=goto_split:down
-keybind = ctrl+s>k=goto_split:up
-keybind = ctrl+s>l=goto_split:right
+keybind = ctrl+s>&=close_tab
+keybind = "ctrl+s>{=move_tab:-1"
+keybind = "ctrl+s>}=move_tab:1"
+keybind = ctrl+s>w=toggle_tab_overview
+keybind = ctrl+s>,=prompt_surface_title
 
+## Switch Tabs
 keybind = ctrl+s>n=next_tab
 keybind = ctrl+s>p=previous_tab
-
-keybind = ctrl+s>shift+\=new_split:left
-keybind = ctrl+s>shift+-=new_split:right
-keybind = ctrl+s>-=new_split:down
-
-keybind = ctrl+s>shift+h=resize_split:left,200
-keybind = ctrl+s>shift+j=resize_split:down,167
-keybind = ctrl+s>shift+k=resize_split:up,167
-keybind = ctrl+s>shift+l=resize_split:right,200
-keybind = ctrl+s>x>shift+h=resize_split:left,400
-keybind = ctrl+s>x>shift+j=resize_split:down,333
-keybind = ctrl+s>x>shift+k=resize_split:up,333
-keybind = ctrl+s>x>shift+l=resize_split:right,400
-
-keybind = ctrl+s>z=toggle_split_zoom
-
-# Split management (tmux-inspired)
-keybind = ctrl+s>q=close_surface
-keybind = ctrl+s>==equalize_splits
-
-# Tab management enhancements
-keybind = ctrl+s>tab=last_tab
-keybind = ctrl+s>shift+<=move_tab:-1
-keybind = ctrl+s>shift+>=move_tab:1
-
-# Window/tab overview
-keybind = ctrl+s>w=toggle_tab_overview
-
+keybind = ctrl+s>$=last_tab
 keybind = ctrl+s>1=goto_tab:1
 keybind = ctrl+s>2=goto_tab:2
 keybind = ctrl+s>3=goto_tab:3
@@ -46,19 +72,51 @@ keybind = ctrl+s>8=goto_tab:8
 keybind = ctrl+s>9=goto_tab:9
 keybind = ctrl+s>0=goto_tab:0
 
+## New Split
+keybind = ctrl+s>\=new_split:auto
+keybind = ctrl+s>shift+\=new_split:left
+keybind = ctrl+s>shift+-=new_split:right
+keybind = ctrl+s>-=new_split:down
+keybind = ctrl+s>%=new_split:auto
+keybind = ctrl+s>"=new_split:up
+
+## Switch Splits
+keybind = ctrl+s>i=goto_split:next
+keybind = ctrl+s>o=goto_split:previous
+keybind = ctrl+s>space=goto_split:previous
+keybind = ctrl+s>h=goto_split:left
+keybind = ctrl+s>j=goto_split:down
+keybind = ctrl+s>k=goto_split:up
+keybind = ctrl+s>l=goto_split:right
+
+## Resize Splits
+keybind = ctrl+s>shift+h=resize_split:left,200
+keybind = ctrl+s>shift+j=resize_split:down,167
+keybind = ctrl+s>shift+k=resize_split:up,167
+keybind = ctrl+s>shift+l=resize_split:right,200
+keybind = ctrl+s>==equalize_splits
+
+## Split/Pane Management
+keybind = ctrl+s>,=prompt_surface_title
+keybind = ctrl+s>x=close_surface
+keybind = ctrl+s>z=toggle_split_zoom
+
 # Vim-oriented scroll and navigation
 keybind = ctrl+s>g>g=scroll_to_top
 keybind = ctrl+s>shift+g=scroll_to_bottom
 keybind = ctrl+s>u=scroll_page_up
 keybind = ctrl+s>d=scroll_page_down
-keybind = ctrl+s>[=jump_to_prompt:-1
-keybind = ctrl+s>]=jump_to_prompt:1
+keybind = "ctrl+s>[=jump_to_prompt:-1"
+keybind = "ctrl+s>]=jump_to_prompt:1"
 
-# Screen management
+# Clear (disable common navigation movement and reassign)
+keybind = ctrl+l=unbind
 keybind = ctrl+s>ctrl+l=clear_screen
-keybind = ctrl+s>,=reload_config
 
-# Quick access
-keybind = ctrl+s>?=toggle_command_palette
+## Utility
+keybind = ctrl+s>:=toggle_command_palette
+keybind = ctrl+s>?=inspector:toggle
+keybind = ctrl+s>r=reload_config
 
 # vim: ft=toml
+
