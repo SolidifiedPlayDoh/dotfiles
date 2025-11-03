@@ -7,8 +7,8 @@
 # on Ghostty's website, at https://ghostty.org/docs/config.
 
 # Font Configuration
-font-family = MonoLisa Nerd Font Light, MonoLisa
-font-family-bold = MonoLisa Nerd Font SemiBold, MonoLisa
+font-family = MonoLisa Nerd Font Medium
+font-family-bold = MonoLisa Nerd Font Bold
 font-size = 10
 font-feature = +calt,+liga,+dlig,+zero,+ss02,+ss10,+ss11,+ss12,+ss13,+ss14,+ss15,+ss16
 font-synthetic-style = false
@@ -28,8 +28,9 @@ cursor-style-blink = false
 # Having both keeps flashing light mode color on new tabs
 # theme = dark:Catppuccin Mocha,light:Catppuccin Latte
 theme = Catppuccin Mocha
-unfocused-split-opacity = 0.90
-unfocused-split-fill = 121218
+split-divider-color = "#585b70"
+unfocused-split-fill = "#181824"
+unfocused-split-opacity = 0.85
 
 # load keybinds
 config-file = config-keybind
