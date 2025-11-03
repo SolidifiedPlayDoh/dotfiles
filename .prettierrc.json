@@ -9,7 +9,5 @@
   "arrowParens": "always",
   "proseWrap": "preserve",
   "endOfLine": "lf",
-  "plugins": [
-    "prettier-plugin-toml"
-  ]
+  "plugins": ["prettier-plugin-toml"]
 }

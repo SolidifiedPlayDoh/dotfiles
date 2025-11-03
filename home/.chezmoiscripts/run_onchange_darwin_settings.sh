@@ -66,4 +66,3 @@ defaults write com.apple.finder FXEnableRemoveFromICloudDriveWarning -bool false
 # defaults write com.apple.mail NSFontSize -int 14
 defaults write com.apple.mail NSFixedPitchFont -string "MonoLisa-Regular"
 defaults write com.apple.mail NSFixedPitchFontSize -int 13
-
