@@ -32,21 +32,3 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "TermClose", "TermLeave
   end,
 })
 
--- Disable auto-completion in markdown files
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    -- Try blink.cmp first (LazyVim default)
-    local ok, blink = pcall(require, "blink.cmp")
-    if ok and blink.config and blink.config.enabled ~= nil then
-      -- Blink.cmp uses buffer-local enable/disable
-      vim.b.blink_cmp_enabled = false
-    else
-      -- Fall back to nvim-cmp
-      ok, cmp = pcall(require, "cmp")
-      if ok and cmp.setup and cmp.setup.buffer then
-        cmp.setup.buffer({ enabled = false })
-      end
-    end
-  end,
-})
