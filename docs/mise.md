@@ -1,12 +1,4 @@
----
-status: "accepted"
-date: 2025-08-31
-decision-makers: [Ivy Evans]
-consulted: []
-informed: []
----
-
-# Use Mise for Global Tool Management Instead of Package Managers
+# Mise
 
 ## Context and Problem Statement
 
