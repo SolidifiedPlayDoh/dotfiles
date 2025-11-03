@@ -12,8 +12,8 @@
 #
 # Reference: https://ghostty.org/docs/config
 #
-# [LLM friendly config reference](https://raw.githubusercontent.com/ghostty-org/website/refs/heads/main/docs/config/reference.mdx)
-# [LLM friendly keybind actions](https://raw.githubusercontent.com/ghostty-org/website/refs/heads/main/docs/config/keybind/reference.mdx)
+# [LLM docs: config reference](https://raw.githubusercontent.com/ghostty-org/website/refs/heads/main/docs/config/reference.mdx)
+# [LLM docs: keybind actions](https://raw.githubusercontent.com/ghostty-org/website/refs/heads/main/docs/config/keybind/reference.mdx)
 
 ## Unbind hardcoded physical keys that break in dvorak
 keybind = super+equal=unbind
@@ -24,18 +24,22 @@ keybind = super+shift+bracket_left=unbind
 keybind = super+shift+bracket_right=unbind
 
 ## Rebind default actions but with regular unicode points
-keybind = super+[=goto_split:previous
-keybind = super+]=goto_split:next
-keybind = super+shift+[=previous_tab
-keybind = super+shift+]=next_tab
+keybind = "super+[=goto_split:previous"
+keybind = "super+]=goto_split:next"
+keybind = "super+shift+[=previous_tab"
+keybind = "super+shift+]=next_tab"
 keybind = super+==increase_font_size:1
 keybind = super++=increase_font_size:1
-keybind = super+-=deccrease_font_size:1
+keybind = super+shift++=increase_font_size:1
+keybind = super+shift+==increase_font_size:1
 
 ## Make font changes across all surfaces
-keybind = super+alt++=all:increase_font_size:1
-keybind = super+alt+-=all:deccrease_font_size:1
-keybind = super+alt+0=all:reset_font_size
+keybind = all:super+alt+==increase_font_size:1
+keybind = all:super+alt++=increase_font_size:1
+keybind = all:super+alt+shift++=increase_font_size:1
+keybind = all:super+alt+shift+==increase_font_size:1
+keybind = all:super+alt+-=decrease_font_size:1
+keybind = all:super+alt+0=reset_font_size
 
 # Quick Terminal (macOS)
 keybind = global:option+grave_accent=toggle_quick_terminal
