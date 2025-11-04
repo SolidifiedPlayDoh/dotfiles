@@ -2,5 +2,4 @@ local repo=${1#*github.com/}
 local dir="$HOME/src/$repo"
 
 dir=${dir%.git}
-gh repo clone "$1" "$dir" -- --recursive
-cd "$dir"
+gh repo clone "$1" "$dir" -- --recursive && cd "$dir"

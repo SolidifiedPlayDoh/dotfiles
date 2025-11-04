@@ -10,7 +10,7 @@ fpath=(
 )
 
 # Autoload custom functions
-autoload -Uz c reload!
+autoload -Uz $XDG_CONFIG_HOME/zsh/functions/*(:t)
 
 # Initialize completion system
 autoload -Uz compinit
