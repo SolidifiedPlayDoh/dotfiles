@@ -39,11 +39,15 @@ keybind = cmd+w=close_tab
 # Shift+Enter for Claude Code
 keybind = shift+enter=text:\x1b\r
 
-# Cursor color configuration
+# Cursor
 cursor-invert-fg-bg = true
+cursor-style-blink = false
 
 # Theme
 theme = dark:Catppuccin Mocha,light:Catppuccin Latte
-unfocused-split-opacity = 0.93
+unfocused-split-opacity = 0.80
+unfocused-split-fill = 121218
 
 config-file = config-keybind
+
+# vim: ft=toml
