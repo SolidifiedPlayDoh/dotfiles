@@ -57,4 +57,10 @@ unsetopt PROMPT_SP
 export SKIP_ZSH_SYNTAX_HIGHLIGHTING=1
 export SKIP_ZSH_AUTOSUGGESTIONS=1
 
+# mise - version manager for languages and tools
+{{- if lookPath "mise" }}
+# mise manages its own hooks, run directly (don't cache)
+eval "$(mise activate zsh)"
+{{- end }}
+
 # vi: ft=zsh
