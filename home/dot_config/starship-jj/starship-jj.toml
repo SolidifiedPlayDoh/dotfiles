@@ -33,7 +33,7 @@ behind_symbol = "⇡"
 # Maximum length the bookmark name will be truncated to.
 # max_length = 10
 # Surround the bookmark names with double-quotes
-# surround_with_quotes = true
+surround_with_quotes = false
 
 [[module]]
 # Prints the working copies commit text
@@ -43,7 +43,7 @@ max_length = 24
 # color = "Green"
 # bg_color = "Yellow"
 # default text if the commit description is not set
-# empty_text = "(no description set)"
+empty_text = ""
 # Surround the commit text with double-quotes
 # surround_with_quotes = true
 
@@ -75,7 +75,7 @@ color = "Blue"
 
 [module.empty]
 disabled = false
-text = "(EMPTY)"
+text = "(empty)"
 color = "Green"
 
 [[module]]
