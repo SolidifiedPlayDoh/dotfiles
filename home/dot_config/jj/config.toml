@@ -219,17 +219,6 @@ gh pr create --head "$branch" --title "$title" --body "$body" && gh pr merge $br
 
 'recent_work' = 'ancestors(visible_heads(), 3) & mutable()'
 
-# Uncomment to customize colors
-# [colors]
-# commit_id = "blue"
-# change_id = "magenta"
-# author = "yellow"
-# timestamp = "cyan"
-
-# Uncomment to enable commit signing with GPG
-# [signing]
-# behavior = "own"  # Sign your own commits
-# backend = "gpg"
 [colors]
 # Used by log node template
 "node" = { bold = true }
