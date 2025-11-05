@@ -6,6 +6,36 @@
 # Significantly borrows from @indirect's dotfiles at:
 # https://github.com/indirect/dotfiles/blob/8948ae89f70f5c5bf37b35d97afe6430827ea974/private_dot_config/private_jj/config.toml
 
+[user]
+name = "Martin Emde"
+email = "me@martinemde.com"
+
+[git]
+abandon-unreachable-commits = true
+colocate = true
+push-new-bookmarks = true
+subprocess = true
+write-change-id-header = true
+
+[merge]
+# Line-level merge resolution
+hunk-level = "line"
+# When multiple commits make the same change, accept it automatically
+same-change = "accept"
+
+[ui]
+bookmark-list-sort-keys = ["committer-date-"]
+# Default command when running 'jj' without arguments
+default-command = "status"
+# Enable colored output
+color = "auto"
+diff-formatter = ":git"
+editor = "nvim"
+pager = "delta"
+paginate = "auto"
+show-cryptographic-signatures = true
+diff-editor = ":builtin"
+
 [aliases]
 # Convenient shorthands.
 fb = ["fuzzy_bookmark"]
@@ -16,6 +46,7 @@ l = ["log", "-r", "(trunk()..@):: | (trunk()..@)-"]
 la = ["log", "-r", "..@"]
 ll = ["log", "--template", "builtin_log_detailed"]
 rb = ["rebase"]
+rebase-all = ["rebase", "-s", "all:roots(trunk()..mutable())", "-d", "trunk()"]
 s = ["status"]
 
 fetch = ["git", "fetch"]
@@ -188,36 +219,6 @@ gh pr create --head "$branch" --title "$title" --body "$body" && gh pr merge $br
 
 'recent_work' = 'ancestors(visible_heads(), 3) & mutable()'
 
-[git]
-abandon-unreachable-commits = true
-push-new-bookmarks = true
-
-# better jj/git interop
-write-change-id-header = true
-
-[merge]
-# Line-level merge resolution
-hunk-level = "line"
-# When multiple commits make the same change, accept it automatically
-same-change = "accept"
-
-[ui]
-bookmark-list-sort-keys = ["committer-date-"]
-# Default command when running 'jj' without arguments
-default-command = "status"
-# Enable colored output
-color = "auto"
-diff-formatter = ":git"
-editor = "nvim"
-pager = "delta"
-paginate = "auto"
-show-cryptographic-signatures = true
-diff-editor = ":builtin"
-
-[user]
-name = "Martin Emde"
-email = "me@martinemde.com"
-
 # Uncomment to customize colors
 # [colors]
 # commit_id = "blue"
@@ -229,3 +230,27 @@ email = "me@martinemde.com"
 # [signing]
 # behavior = "own"  # Sign your own commits
 # backend = "gpg"
+[colors]
+# Used by log node template
+"node" = { bold = true }
+"node elided" = { fg = "bright black" }
+"node working_copy" = { fg = "green" }
+"node conflict" = { fg = "red" }
+"node immutable" = { fg = "bright cyan" }
+"node wip" = { fg = "yellow" }
+"node normal" = { bold = false }
+
+
+[templates]
+log_node = '''
+label("node",
+  coalesce(
+    if(!self, label("elided", "⇋")),
+    if(current_working_copy, label("working_copy", "◉")),
+    if(conflict, label("conflict", "✕")),
+    if(immutable, label("immutable", "◆")),
+    if(description.starts_with("wip: "), label("wip", "◠")),
+    label("normal", "○")
+  )
+)
+'''
