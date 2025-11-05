@@ -8,7 +8,7 @@
 
 [aliases]
 # Convenient shorthands.
-b = ["fuzzy_bookmark"]
+fb = ["fuzzy_bookmark"]
 ba = ["bookmark", "list", "--all"]
 co = ["checkout"]
 d = ["diff"]
