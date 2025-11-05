@@ -44,7 +44,9 @@ cursor-invert-fg-bg = true
 cursor-style-blink = false
 
 # Theme
-theme = dark:Catppuccin Mocha,light:Catppuccin Latte
+# Having both keeps flashing light mode color on new tabs
+# theme = dark:Catppuccin Mocha,light:Catppuccin Latte
+theme = Catppuccin Mocha
 unfocused-split-opacity = 0.80
 unfocused-split-fill = 121218
 
