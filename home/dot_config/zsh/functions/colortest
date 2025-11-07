@@ -1,0 +1,75 @@
+#!/usr/bin/env zsh
+# Display terminal color capabilities
+
+# Color names for reference
+local -a color_names=(
+  "Black" "Red" "Green" "Yellow" "Blue" "Magenta" "Cyan" "White"
+)
+
+echo "=== Foreground Colors ==="
+printf "        "
+for i in {0..7}; do
+  printf "\e[3${i}m%-10s\e[0m " "${color_names[$((i+1))]}"
+done
+echo
+
+printf "Bright: "
+for i in {0..7}; do
+  printf "\e[9${i}m%-10s\e[0m " "${color_names[$((i+1))]}"
+done
+echo -e "\n"
+
+echo "=== Background Colors (reverse) ==="
+printf "        "
+for i in {0..7}; do
+  printf "\e[7;3${i}m %-9s \e[0m " "${color_names[$((i+1))]}"
+done
+echo
+
+printf "Bright: "
+for i in {0..7}; do
+  printf "\e[7;9${i}m %-9s \e[0m " "${color_names[$((i+1))]}"
+done
+echo -e "\n"
+
+echo "=== Bold Text Colors ==="
+printf "        "
+for i in {0..7}; do
+  printf "\e[1;3${i}m%-10s\e[0m " "${color_names[$((i+1))]}"
+done
+echo
+
+printf "Bright: "
+for i in {0..7}; do
+  printf "\e[1;9${i}m%-10s\e[0m " "${color_names[$((i+1))]}"
+done
+echo -e "\n"
+
+echo "=== Italic Text Colors ==="
+printf "        "
+for i in {0..7}; do
+  printf "\e[3;3${i}m%-10s\e[0m " "${color_names[$((i+1))]}"
+done
+echo
+
+printf "Bright: "
+for i in {0..7}; do
+  printf "\e[3;9${i}m%-10s\e[0m " "${color_names[$((i+1))]}"
+done
+echo -e "\n"
+
+echo "=== Bold + Italic Colors ==="
+printf "        "
+for i in {0..7}; do
+  printf "\e[1;3;3${i}m%-10s\e[0m " "${color_names[$((i+1))]}"
+done
+echo
+
+printf "Bright: "
+for i in {0..7}; do
+  printf "\e[1;3;9${i}m%-10s\e[0m " "${color_names[$((i+1))]}"
+done
+echo -e "\n"
+
+echo "=== Text Attributes ==="
+echo -e "\e[1mBold\e[0m | \e[2mDim\e[0m | \e[3mItalic\e[0m | \e[4mUnderline\e[0m | \e[7mReverse\e[0m | \e[9mStrikethrough\e[0m"
