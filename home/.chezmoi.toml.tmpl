@@ -11,11 +11,18 @@ sourceDir = "{{ .chezmoi.workingTree }}"
 # Data Section
 # Variables defined here are available in all templates via the .data namespace.
 # These values can be referenced in template files throughout the dotfiles repo.
+{{- $awsProfile := promptStringOnce . "aws_profile" "AWS Profile (leave empty for personal machines)" }}
+
 [data.git]
 # Git user configuration - prompted during initialization
 # Used in git config templates and other version control settings
 name = "Martin Emde"
 email = "me@martinemde.com"
+
+[data.aws]
+# AWS configuration - prompted during initialization
+# Used for Claude Code settings on work machines
+profile = {{ $awsProfile | quote }}
 
 [diff]
 format = "git"

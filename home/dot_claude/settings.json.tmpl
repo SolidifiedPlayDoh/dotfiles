@@ -1,0 +1,17 @@
+{{- /* Include work settings if AWS profile was configured during init */ -}}
+{
+{{- if .aws.profile }}
+  "awsAuthRefresh": "aws sso login --profile $AWS_PROFILE",
+  "env": {
+    "AWS_PROFILE": {{ .aws.profile | quote }},
+    "CLAUDE_CODE_USE_BEDROCK": "1"
+  },
+{{- end }}
+  "includeCoAuthoredBy": false,
+  "alwaysThinkingEnabled": true,
+  "gitAttribution": false,
+  "statusLine": {
+    "type": "command",
+    "command": "~/.local/bin/claude_statusline"
+  }
+}
