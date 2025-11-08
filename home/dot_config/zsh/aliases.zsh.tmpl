@@ -17,6 +17,7 @@ alias git-https='git remote set-url origin "$(git remote get-url origin | sed -E
 alias git-ssh='git remote set-url origin "$(git remote get-url origin | sed -E '\''s,^https://([^/]*)/(.*)$,git@\1:\2,'\'')"'
 alias grep='rg'
 alias histogram='sort | uniq -c | sort -r'
+alias j='jj'
 alias l='eza --icons'
 alias la='eza -la --git --icons --color-scale'
 alias less=bat
