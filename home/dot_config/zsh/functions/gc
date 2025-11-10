@@ -1,4 +1,5 @@
-local repo=${1#*github.com/}
+local repo=${1#*github.com}
+repo=${repo#[/:]}  # Remove leading / or :
 local dir="$HOME/src/$repo"
 
 dir=${dir%.git}
