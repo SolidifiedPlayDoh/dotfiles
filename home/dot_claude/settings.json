@@ -4,6 +4,6 @@
   "gitAttribution": false,
   "statusLine": {
     "type": "command",
-    "command": "~/local/bin/claude_statusline"
+    "command": "~/.local/bin/claude_statusline"
   }
 }

@@ -9,10 +9,10 @@ dir_name=$(basename "$cwd")
 
 # Get starship-jj prompt for the directory
 if command -v starship-jj >/dev/null 2>&1; then
-    cd "$cwd"
-    jj_prompt=$(starship-jj --ignore-working-copy starship 2>/dev/null || echo "")
-    printf "%s%s" "$dir_name" "$jj_prompt"
+  cd "$cwd"
+  jj_prompt=$(starship-jj --ignore-working-copy starship prompt 2>/dev/null)
+  printf "%s %s" "$dir_name" "$jj_prompt"
 else
-    # Fallback if starship-jj not available
-    printf "%s" "$dir_name"
+  # Fallback if starship-jj not available
+  printf "%s" "$dir_name"
 fi
