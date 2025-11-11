@@ -23,5 +23,3 @@ home/dot_local/bin/
 # JSON5 file without plugin support
 renovate.json5
 
-# Private configs (format manually if needed)
-home/private_*/
