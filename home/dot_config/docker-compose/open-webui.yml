@@ -1,4 +1,4 @@
-version: "3.7"
+version: '3.7'
 
 services:
   tailscale:
@@ -11,8 +11,8 @@ services:
       - TS_USERSPACE=false
       - TS_SERVE_CONFIG=/config/serve.json
     volumes:
-      - "${TAILSCALE_STATE_DIR:-./tailscale-state}:/var/lib/tailscale"
-      - "${TAILSCALE_CONFIG_DIR:-./tailscale-config}:/config:ro"
+      - '${TAILSCALE_STATE_DIR:-./tailscale-state}:/var/lib/tailscale'
+      - '${TAILSCALE_CONFIG_DIR:-./tailscale-config}:/config:ro'
     devices:
       - /dev/net/tun:/dev/net/tun
     cap_add:
@@ -29,5 +29,5 @@ services:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - WEBUI_AUTH=${WEBUI_AUTH:-False}
     volumes:
-      - "${WEBUI_DATA_DIR:-./data}:/app/backend/data"
+      - '${WEBUI_DATA_DIR:-./data}:/app/backend/data'
     restart: unless-stopped

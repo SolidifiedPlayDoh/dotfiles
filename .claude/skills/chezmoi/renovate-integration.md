@@ -42,12 +42,12 @@ refreshPeriod = "168h"
 
 ```json5
 {
-  customType: "regex",
-  fileMatch: ["^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$"],
+  customType: 'regex',
+  fileMatch: ['^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$'],
   matchStrings: [
     '# renovate: repo=(?<depName>.*?) branch=(?<currentValue>.*?)\\n.*?\\n.*?revision = "(?<currentDigest>[a-f0-9]{40})"',
   ],
-  datasourceTemplate: "git-refs",
+  datasourceTemplate: 'git-refs',
 }
 ```
 
@@ -79,12 +79,12 @@ stripComponents = 1
 
 ```json5
 {
-  customType: "regex",
-  fileMatch: ["^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$"],
+  customType: 'regex',
+  fileMatch: ['^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$'],
   matchStrings: [
     '# renovate: repo=(?<depName>.*?) branch=(?<currentValue>.*?)\\n.*?url = "https://github\\.com/[^/]+/[^/]+/archive/(?<currentDigest>[a-f0-9]{40})\\.tar\\.gz"',
   ],
-  datasourceTemplate: "git-refs",
+  datasourceTemplate: 'git-refs',
 }
 ```
 
@@ -107,12 +107,12 @@ url = "https://github.com/catppuccin/bat/raw/6810349b28055dce54076712fc05fc68da4
 
 ```json5
 {
-  customType: "regex",
-  fileMatch: ["^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$"],
+  customType: 'regex',
+  fileMatch: ['^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$'],
   matchStrings: [
     '# renovate: repo=(?<depName>.*?) branch=(?<currentValue>.*?)\\n.*?url = "https://github\\.com/[^/]+/[^/]+/raw/(?<currentDigest>[a-f0-9]{40})/',
   ],
-  datasourceTemplate: "git-refs",
+  datasourceTemplate: 'git-refs',
 }
 ```
 
@@ -137,12 +137,12 @@ checksum = "sha256:abc123..."
 
 ```json5
 {
-  customType: "regex",
-  fileMatch: ["^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$"],
+  customType: 'regex',
+  fileMatch: ['^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$'],
   matchStrings: [
     'url = "https://github\\.com/(?<depName>[^/]+/[^/]+)/releases/download/(?<currentValue>v?[0-9.]+)/',
   ],
-  datasourceTemplate: "github-releases",
+  datasourceTemplate: 'github-releases',
 }
 ```
 
@@ -176,12 +176,12 @@ checksum = "sha256:abc123def456..."
 
 ```json5
 {
-  customType: "regex",
-  fileMatch: ["^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$"],
+  customType: 'regex',
+  fileMatch: ['^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$'],
   matchStrings: [
     '# renovate: depName=(?<depName>.*?)\\n.*?url = "https://github\\.com/[^/]+/[^/]+/releases/download/(?<currentValue>v?[0-9.]+)/(?<currentFileName>.*?)".*?\\n.*?checksum = "(?<currentDigest>sha256:[a-f0-9]{64})"',
   ],
-  datasourceTemplate: "github-releases",
+  datasourceTemplate: 'github-releases',
   autoReplaceStringTemplate: '# renovate: depName={{{depName}}}\n{{{indentation}}}type = "archive-file"\n{{{indentation}}}url = "https://github.com/{{{depName}}}/releases/download/{{{newValue}}}/{{{currentFileName}}}"\n{{{indentation}}}executable = true\n{{{indentation}}}path = "{{{path}}}"\n{{{indentation}}}checksum = "{{{newDigest}}}"',
 }
 ```
@@ -213,13 +213,13 @@ url = "https://github.com/catppuccin/bat/raw/6810349b28055dce54076712fc05fc68da4
 
 ```json5
 {
-  customType: "regex",
-  fileMatch: ["^home/\\.chezmoiexternals/bat\\.externals\\.toml(\\.tmpl)?$"],
+  customType: 'regex',
+  fileMatch: ['^home/\\.chezmoiexternals/bat\\.externals\\.toml(\\.tmpl)?$'],
   matchStrings: [
-    "# renovate: repo=(?<depName>catppuccin/bat) branch=(?<currentValue>main) sha=(?<currentDigest>[a-f0-9]{40})",
+    '# renovate: repo=(?<depName>catppuccin/bat) branch=(?<currentValue>main) sha=(?<currentDigest>[a-f0-9]{40})',
     'url = "https://github\\.com/catppuccin/bat/raw/(?<currentDigest>[a-f0-9]{40})/',
   ],
-  datasourceTemplate: "git-refs",
+  datasourceTemplate: 'git-refs',
 }
 ```
 
@@ -446,43 +446,43 @@ Create test PR with intentionally outdated SHA:
 
 ```json5
 {
-  extends: ["config:base"],
+  extends: ['config:base'],
   customManagers: [
     // Git repos with revision field
     {
-      customType: "regex",
-      fileMatch: ["^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$"],
+      customType: 'regex',
+      fileMatch: ['^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$'],
       matchStrings: [
         '# renovate: repo=(?<depName>.*?) branch=(?<currentValue>.*?)\\n.*?\\n.*?revision = "(?<currentDigest>[a-f0-9]{40})"',
       ],
-      datasourceTemplate: "git-refs",
+      datasourceTemplate: 'git-refs',
     },
     // GitHub archives with commit SHA
     {
-      customType: "regex",
-      fileMatch: ["^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$"],
+      customType: 'regex',
+      fileMatch: ['^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$'],
       matchStrings: [
         '# renovate: repo=(?<depName>.*?) branch=(?<currentValue>.*?)\\n.*?url = "https://github\\.com/[^/]+/[^/]+/archive/(?<currentDigest>[a-f0-9]{40})\\.tar\\.gz"',
       ],
-      datasourceTemplate: "git-refs",
+      datasourceTemplate: 'git-refs',
     },
     // GitHub raw files with commit SHA
     {
-      customType: "regex",
-      fileMatch: ["^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$"],
+      customType: 'regex',
+      fileMatch: ['^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$'],
       matchStrings: [
         '# renovate: repo=(?<depName>.*?) branch=(?<currentValue>.*?)\\n.*?url = "https://github\\.com/[^/]+/[^/]+/raw/(?<currentDigest>[a-f0-9]{40})/',
       ],
-      datasourceTemplate: "git-refs",
+      datasourceTemplate: 'git-refs',
     },
     // GitHub releases
     {
-      customType: "regex",
-      fileMatch: ["^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$"],
+      customType: 'regex',
+      fileMatch: ['^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$'],
       matchStrings: [
         'url = "https://github\\.com/(?<depName>[^/]+/[^/]+)/releases/download/(?<currentValue>v?[0-9.]+)/',
       ],
-      datasourceTemplate: "github-releases",
+      datasourceTemplate: 'github-releases',
     },
   ],
 }

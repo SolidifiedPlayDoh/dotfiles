@@ -271,14 +271,14 @@ For each external entry, ensure corresponding Renovate `customManagers` entry ex
 
 ```json5
 {
-  customType: "regex",
-  fileMatch: ["^home/\\.chezmoiexternal\\.toml\\.tmpl$"],
+  customType: 'regex',
+  fileMatch: ['^home/\\.chezmoiexternal\\.toml\\.tmpl$'],
   matchStrings: [
     'url = "https://github\\.com/org/repo/archive/(?<currentDigest>[a-f0-9]{40})\\.tar\\.gz"',
   ],
-  depNameTemplate: "org/repo",
-  datasourceTemplate: "git-refs",
-  currentValueTemplate: "master",
+  depNameTemplate: 'org/repo',
+  datasourceTemplate: 'git-refs',
+  currentValueTemplate: 'master',
 }
 ```
 

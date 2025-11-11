@@ -218,7 +218,7 @@ services:
   postgres:
     image: postgres:16-alpine@sha256:abc123...
     ports:
-      - "5432:5432"
+      - '5432:5432'
 ```
 
 ```json

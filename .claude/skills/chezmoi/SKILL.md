@@ -172,12 +172,12 @@ See `./renovate-integration.md` for detailed patterns.
 
 ```json5
 {
-  customType: "regex",
-  fileMatch: ["^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$"],
+  customType: 'regex',
+  fileMatch: ['^home/\\.chezmoiexternals/.*\\.toml(\\.tmpl)?$'],
   matchStrings: [
     'revision = "(?<currentDigest>[a-f0-9]{40})".*?# renovate: repo=(?<depName>.*?) branch=(?<currentValue>.*?)\\n',
   ],
-  datasourceTemplate: "git-refs",
+  datasourceTemplate: 'git-refs',
 }
 ```
 
