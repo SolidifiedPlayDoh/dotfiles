@@ -3,7 +3,7 @@
 "aqua:technicalpickles/envsense" = "0.3.0"
 bun = "1.2.21"
 "cargo:starship-jj" = "0.6.0"
-node = "22.12.0"
+node = "24.11.0"
 python = "3.13.7"
 
 [settings]
