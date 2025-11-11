@@ -28,7 +28,7 @@ export EDITOR="nvim"
 
 # Pager configuration
 export PAGER="less"
-export LESS="-FRX"
+export LESS="-FR"
 
 # NPM security hardening - disable postinstall scripts for global CLI tools
 export NPM_CONFIG_IGNORE_SCRIPTS=1
