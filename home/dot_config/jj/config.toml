@@ -10,10 +10,16 @@
 name = "Martin Emde"
 email = "me@martinemde.com"
 
+[signing]
+backend = "ssh"
+behavior = "own"
+key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBUOchTXDNe34jfmbmvuPuK4Vi8ClJkbmwkKrULyDh3U"
+
 [git]
 abandon-unreachable-commits = true
 colocate = true
 push-new-bookmarks = true
+sign-on-push = true
 subprocess = true
 write-change-id-header = true
 
