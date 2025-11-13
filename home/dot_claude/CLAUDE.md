@@ -97,15 +97,31 @@ Use these specialized subagents for focused tasks:
 
 ### Formatting
 
+- Refer to .editorconfig if present
+- Run auto formatting (`bun run format`, `cargo fmt`, `bin/rubocop -a`)
 - Use 2-space indentation for YAML, JSON, web technologies
 - Use 4-space indentation for Python, shell scripts
-- Prefer single quotes in JavaScript/TypeScript unless interpolating
-- Include trailing commas in multi-line structures
 - Keep lines under 80 characters when practical
 
-### Git Commits
+### Jujutsu (Git) Commits
 
-- Use Conventional Commits format (feat:, fix:, chore:, docs:)
-- Keep first line under 72 characters and subsequent lines under 80 characters
-- Use present tense ("add feature" not "added feature")
-- Be descriptive but concise
+Use `jj desc -m "Commit message"` to describe the current change.
+`jj new -m "Write the new commit message"` to start a new change.
+
+Subject: "Add a sentence case subject with no period at end"
+
+- Subject is 50 chars max (72 absolute limit)
+- Imperative mood, finishing the phrase: "This commit will..."
+
+Body: Explain _why_ in body, wrapped at 72 chars
+
+```gitcommit
+Refactor CLAUDE.md commit message instructions
+
+Writing commit messages that are concise, easy to understand, and well-
+formatted helps users and computers understand code better.
+
+This example makes it more likely that the agent will write good commit messages that follow best practices.
+
+Resolves: #42
+```
