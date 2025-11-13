@@ -63,18 +63,18 @@ jj log -r 'mine()'  # See your commits
 
 ## Git Command Quick Reference
 
-| Git                     | Jujutsu                    | Notes                    |
-| ----------------------- | -------------------------- | ------------------------ |
-| `git add`               | (automatic)                | Files auto-tracked       |
-| `git commit`            | `jj commit`                | Finalizes current change |
-| `git commit --amend`    | edit files                 | Auto-amends working copy |
-| `git checkout <branch>` | `jj new <bookmark>`        | Creates new change on top|
-| `git rebase -i`         | `jj rebase`/`squash`/`split` | Multiple commands     |
-| `git status`            | `jj st`                    | Working copy changes     |
-| `git log`               | `jj log`                   | Better defaults          |
-| `git branch`            | `jj bookmark list`         | Bookmarks not branches   |
-| `git push`              | `jj git push`              | Explicit Git integration |
-| `git stash`             | `jj new @-`                | Old commit stays as sibling |
+| Git                     | Jujutsu                      | Notes                       |
+| ----------------------- | ---------------------------- | --------------------------- |
+| `git add`               | (automatic)                  | Files auto-tracked          |
+| `git commit`            | `jj commit`                  | Finalizes current change    |
+| `git commit --amend`    | edit files                   | Auto-amends working copy    |
+| `git checkout <branch>` | `jj new <bookmark>`          | Creates new change on top   |
+| `git rebase -i`         | `jj rebase`/`squash`/`split` | Multiple commands           |
+| `git status`            | `jj st`                      | Working copy changes        |
+| `git log`               | `jj log`                     | Better defaults             |
+| `git branch`            | `jj bookmark list`           | Bookmarks not branches      |
+| `git push`              | `jj git push`                | Explicit Git integration    |
+| `git stash`             | `jj new @-`                  | Old commit stays as sibling |
 
 ## Essential Revset Syntax
 
