@@ -89,6 +89,7 @@ Use these specialized subagents for focused tasks:
 ## Comments & Communication
 
 - Write comments explaining "why" not "what"
+- Add the context missing from the code as comments
 - Document non-obvious behavior and edge cases
 - Include relevant links to documentation or issues
 - Keep comments current with code changes
@@ -99,11 +100,10 @@ Use these specialized subagents for focused tasks:
 
 - Refer to .editorconfig if present
 - Run auto formatting (`bun run format`, `cargo fmt`, `bin/rubocop -a`)
-- Use 2-space indentation for YAML, JSON, web technologies
-- Use 4-space indentation for Python, shell scripts
+- Use indentation consistent with existing files or language conventions
 - Keep lines under 80 characters when practical
 
-### Jujutsu (Git) Commits
+### Describing commits in Jujutsu (Git)
 
 Use `jj desc -m "Commit message"` to describe the current change.
 `jj new -m "Write the new commit message"` to start a new change.
