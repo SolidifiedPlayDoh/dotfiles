@@ -32,3 +32,35 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "TermClose", "TermLeave
   end,
 })
 
+-- Chezmoi template filetype detection with base language support
+-- Detects base filetype from pattern like .json.tmpl, .yaml.tmpl, etc.
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.tmpl",
+  callback = function()
+    local filename = vim.fn.expand("%:t")
+
+    -- Extract base filetype from patterns like .json.tmpl, .yaml.tmpl, .sh.tmpl
+    local base_ft = filename:match("%.([^.]+)%.tmpl$")
+
+    -- Normalize some extensions to their proper filetypes
+    local ft_map = {
+      sh = "bash",
+      yml = "yaml",
+      zsh = "bash",
+    }
+
+    if base_ft then
+      base_ft = ft_map[base_ft] or base_ft
+      -- Set compound filetype: base.gotmpl (e.g., json.gotmpl, yaml.gotmpl)
+      vim.bo.filetype = base_ft .. ".gotmpl"
+
+      -- Store base language for injection queries
+      vim.b.gotmpl_base_lang = base_ft
+    else
+      -- No base extension detected, just use gotmpl
+      vim.bo.filetype = "gotmpl"
+      vim.b.gotmpl_base_lang = nil
+    end
+  end,
+})
+
