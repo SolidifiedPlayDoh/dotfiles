@@ -15,9 +15,9 @@ Instruction precedence (highest first):
 
 ## Tools & Testing
 
-### Package and Tool Management (Policy)
+### Package and Tool Management
 
-Authoritative policy for installing and managing developer tools:
+Policy for installing and managing developer tools:
 
 1. Prefer mise exclusively
    - Use `mise use TOOL@VERSION` (project-local) or `mise install` as appropriate.
@@ -46,23 +46,23 @@ Authoritative policy for installing and managing developer tools:
 
 #### Test Safety & Isolation
 
-- **Always use test-safe fixtures and paths**: Never use real system paths or actual program names in tests
-- **Sandbox all test operations**: Use temporary directories, mock services, or isolated test environments
-- **Safe naming conventions**: Use clearly fictional names (e.g., `com.example.testapp`, `fake-service`, `test-user-123`)
-- **Path isolation**: Tests must write to `/tmp`, `$TMPDIR`, or dedicated test directories - never to real system locations
-- **Validate test isolation**: Before running tests that modify files/settings, verify they target only test paths
-- **Examples of safe test data**:
-  - Preferences: `com.example.testapp` instead of `com.apple.Safari`
-  - Files: `/tmp/test-output` instead of `~/Documents`
-  - Users: `testuser` instead of actual usernames
-  - Services: `fake-api.example.com` instead of real endpoints
+- Always use test-safe fixtures and paths, never real system paths or program names
+- Sandbox all operations with temporary directories, mock services, or isolated environments
+- Use clearly fictional names: `com.example.testapp`, `fake-service`, `test-user-123`
+- Tests must write to `/tmp`, `$TMPDIR`, or test directories, never real system locations
+- Before running tests that modify files/settings, verify they target only test paths
+- Examples of safe test data:
+  - Preferences: `com.example.testapp` not `com.apple.Safari`
+  - Files: `/tmp/test-output` not `~/Documents`
+  - Users: `testuser` not actual usernames
+  - Services: `fake-api.example.com` not real endpoints
 
 ## Execution Safety
 
-- Preview first: use tool-specific diff/plan or `--dry-run` before applying changes.
-- Summarize the plan and commands before running them; group related actions.
-- **Test isolation verification**: Before executing tests, confirm they target only safe paths and use fictional data
-- **System protection**: Never write tests or scripts that could modify real user data, preferences, or system files
+- Preview first: use tool-specific diff/plan or `--dry-run` before applying changes
+- Summarize the plan and commands before running them; group related actions
+- Before executing tests, confirm they target only safe paths and use fictional data
+- Never write tests or scripts that could modify real user data, preferences, or system files
 
 ## Specialized Agents
 
@@ -70,21 +70,21 @@ Use these specialized subagents for focused tasks:
 
 ### PR Feedback Reviewer (`pr-feedback-reviewer`)
 
-- **When to use**: Addressing pull request feedback, reviewing PR comments
-- **Purpose**: Fetches all PR comments, evaluates validity, provides prioritized recommendations
-- **Model**: Uses Opus for thorough analysis
+- When to use: Addressing pull request feedback, reviewing PR comments
+- Purpose: Fetches all PR comments, evaluates validity, provides prioritized recommendations
+- Model: Uses Opus for thorough analysis
 
 ### Code Reviewer (`reviewer`)
 
-- **When to use**: Code or document review tasks
-- **Purpose**: Reviews code quality, architecture, and documentation
-- **Restrictions**: Review-only agent - writes reports to scratch/ folder but doesn't modify production code
+- When to use: Code or document review tasks
+- Purpose: Reviews code quality, architecture, and documentation
+- Restrictions: Review-only agent - writes reports to scratch/ folder but doesn't modify production code
 
 ### Shell Wizard (`shell-wizard`)
 
-- **When to use**: Creating or modifying shell scripts, bash scripts, installation scripts
-- **Purpose**: Writes production-quality shell scripts with proper error handling and best practices
-- **Features**: Safety headers, function patterns, long flags, shellcheck validation
+- When to use: Creating or modifying shell scripts, bash scripts, installation scripts
+- Purpose: Writes production-quality shell scripts with proper error handling and best practices
+- Features: Safety headers, function patterns, long flags, shellcheck validation
 
 ## Comments & Communication
 
@@ -103,10 +103,10 @@ Use these specialized subagents for focused tasks:
 - Use indentation consistent with existing files or language conventions
 - Keep lines under 80 characters when practical
 
-### Describing commits in Jujutsu (Git)
+### Jujutsu Commits
 
 Use `jj desc -m "Commit message"` to describe the current change.
-`jj new -m "Write the new commit message"` to start a new change.
+Use `jj new -m "Commit message"` to start a new change.
 
 Subject: "Add a sentence case subject with no period at end"
 
