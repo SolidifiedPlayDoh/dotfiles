@@ -1,0 +1,105 @@
+{
+  "name": "personal-dotfiles-claude-marketplace",
+  "owner": {
+    "name": "Martin Emde",
+    "email": "martin.emde@gmail.com"
+  },
+  "metadata": {
+    "description": "Personal collection of Claude Code agents, skills, and commands for dotfiles management, version control, code review, and shell scripting",
+    "version": "1.0.0",
+    "pluginRoot": "${HOME}/.claude"
+  },
+  "plugins": [
+    {
+      "name": "vcs-jujutsu-agent",
+      "source": "${CLAUDE_PLUGIN_ROOT}/agents/vcs-jj.md",
+      "description": "Version control specialist using Jujutsu (jj) to handle all commit operations, rebase workflows, and PR preparation. Keeps version control context separate from main agent.",
+      "version": "1.0.0",
+      "category": "version-control",
+      "tags": ["jujutsu", "jj", "vcs", "git", "commits", "pr"],
+      "author": {
+        "name": "Martin Emde",
+        "email": "martin.emde@gmail.com"
+      },
+      "agents": ["${CLAUDE_PLUGIN_ROOT}/agents/vcs-jj.md"]
+    },
+    {
+      "name": "pr-feedback-reviewer-agent",
+      "source": "${CLAUDE_PLUGIN_ROOT}/agents/pr-feedback-reviewer.md",
+      "description": "Fetches all PR comments, evaluates validity, and provides prioritized recommendations for addressing pull request feedback",
+      "version": "1.0.0",
+      "category": "code-review",
+      "tags": ["pr", "review", "feedback", "github"],
+      "author": {
+        "name": "Martin Emde",
+        "email": "martin.emde@gmail.com"
+      },
+      "agents": ["${CLAUDE_PLUGIN_ROOT}/agents/pr-feedback-reviewer.md"]
+    },
+    {
+      "name": "reviewer-agent",
+      "source": "${CLAUDE_PLUGIN_ROOT}/agents/reviewer.md",
+      "description": "Reviews code quality, architecture, and documentation. Review-only agent that writes reports to scratch/ folder but doesn't modify production code.",
+      "version": "1.0.0",
+      "category": "code-review",
+      "tags": ["review", "code-quality", "architecture", "documentation"],
+      "author": {
+        "name": "Martin Emde",
+        "email": "martin.emde@gmail.com"
+      },
+      "agents": ["${CLAUDE_PLUGIN_ROOT}/agents/reviewer.md"]
+    },
+    {
+      "name": "shell-wizard-agent",
+      "source": "${CLAUDE_PLUGIN_ROOT}/agents/shell-wizard.md",
+      "description": "Writes production-quality shell scripts with proper error handling, safety headers, function patterns, long flags, and shellcheck validation",
+      "version": "1.0.0",
+      "category": "scripting",
+      "tags": ["shell", "bash", "scripting", "automation"],
+      "author": {
+        "name": "Martin Emde",
+        "email": "martin.emde@gmail.com"
+      },
+      "agents": ["${CLAUDE_PLUGIN_ROOT}/agents/shell-wizard.md"]
+    },
+    {
+      "name": "use-jj-not-git-skill",
+      "source": "${CLAUDE_PLUGIN_ROOT}/skills/use-jj-not-git",
+      "description": "Comprehensive guidance for using Jujutsu (jj) for version control. Covers commands, concepts, workflows, and Git command translation.",
+      "version": "1.0.0",
+      "category": "version-control",
+      "tags": ["jujutsu", "jj", "vcs", "git", "tutorial"],
+      "author": {
+        "name": "Martin Emde",
+        "email": "martin.emde@gmail.com"
+      },
+      "skills": ["${CLAUDE_PLUGIN_ROOT}/skills/use-jj-not-git"]
+    },
+    {
+      "name": "skill-creator-skill",
+      "source": "${CLAUDE_PLUGIN_ROOT}/skills/skill-creator",
+      "description": "Meta-skill for creating new Claude Code skills with proper structure, documentation, and best practices",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": ["meta", "skill-creation", "development"],
+      "author": {
+        "name": "Martin Emde",
+        "email": "martin.emde@gmail.com"
+      },
+      "skills": ["${CLAUDE_PLUGIN_ROOT}/skills/skill-creator"]
+    },
+    {
+      "name": "gitingest-command",
+      "source": "${CLAUDE_PLUGIN_ROOT}/commands/gitingest.md",
+      "description": "Generate comprehensive codebase digests using gitingest for sharing repository context",
+      "version": "1.0.0",
+      "category": "utilities",
+      "tags": ["git", "documentation", "digest", "context"],
+      "author": {
+        "name": "Martin Emde",
+        "email": "martin.emde@gmail.com"
+      },
+      "commands": ["${CLAUDE_PLUGIN_ROOT}/commands/gitingest.md"]
+    }
+  ]
+}

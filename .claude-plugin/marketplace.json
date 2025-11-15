@@ -1,0 +1,53 @@
+{
+  "name": "dotfiles-repository-plugins",
+  "owner": {
+    "name": "Martin Emde",
+    "email": "martin.emde@gmail.com"
+  },
+  "metadata": {
+    "description": "Repository-specific Claude Code plugins for managing this dotfiles repository with Chezmoi and package management",
+    "version": "1.0.0",
+    "pluginRoot": "${CLAUDE_PLUGIN_ROOT}"
+  },
+  "plugins": [
+    {
+      "name": "package-manager-agent",
+      "source": "${CLAUDE_PLUGIN_ROOT}/agents/package-manager.md",
+      "description": "Securely manage package and container image versions by enforcing immutable pins (versions/digests/SHAs) across manifests and keeping Renovate aligned for safe, automated updates",
+      "version": "1.0.0",
+      "category": "package-management",
+      "tags": ["packages", "dependencies", "renovate", "docker", "homebrew", "mise"],
+      "author": {
+        "name": "Martin Emde",
+        "email": "martin.emde@gmail.com"
+      },
+      "agents": ["${CLAUDE_PLUGIN_ROOT}/agents/package-manager.md"]
+    },
+    {
+      "name": "vcs-jujutsu-agent",
+      "source": "${CLAUDE_PLUGIN_ROOT}/agents/vcs-jj.md",
+      "description": "Version control specialist using Jujutsu (jj) to handle all commit operations, rebase workflows, and PR preparation for this repository",
+      "version": "1.0.0",
+      "category": "version-control",
+      "tags": ["jujutsu", "jj", "vcs", "commits", "pr"],
+      "author": {
+        "name": "Martin Emde",
+        "email": "martin.emde@gmail.com"
+      },
+      "agents": ["${CLAUDE_PLUGIN_ROOT}/agents/vcs-jj.md"]
+    },
+    {
+      "name": "managing-chezmoi-packages-skill",
+      "source": "${CLAUDE_PLUGIN_ROOT}/skills/chezmoi",
+      "description": "Comprehensive guidance for managing packages, external dependencies, binaries, and CLI tools in a chezmoi dotfiles repository with version pinning and Renovate automation",
+      "version": "1.0.0",
+      "category": "package-management",
+      "tags": ["chezmoi", "dotfiles", "packages", "externals", "renovate"],
+      "author": {
+        "name": "Martin Emde",
+        "email": "martin.emde@gmail.com"
+      },
+      "skills": ["${CLAUDE_PLUGIN_ROOT}/skills/chezmoi"]
+    }
+  ]
+}
