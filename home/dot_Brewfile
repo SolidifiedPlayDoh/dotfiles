@@ -83,6 +83,7 @@ brew "terraform" # IaC tool
 brew "texinfo" # documentation
 brew "trash" # safe delete
 brew "tree" # directory tree
+brew "trufflehog" # secrets scanner
 brew "uv" # Python installer
 brew "vips" # image processing
 brew "watchman"  # file watcher
