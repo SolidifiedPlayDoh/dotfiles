@@ -34,4 +34,8 @@ if [ -f "$XDG_CONFIG_HOME/zsh/functions/trufflehog-daily-scan" ]; then
 fi
 {{- end }}
 
+if [ -f "$XDG_CONFIG_HOME/op/plugins.sh" ]; then
+  znap source "$XDG_CONFIG_HOME/op/plugins.sh"
+fi
+
 # vi: ft=zsh
