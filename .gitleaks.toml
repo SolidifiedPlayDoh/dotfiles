@@ -1,0 +1,14 @@
+# Gitleaks configuration for dotfiles repository
+title = "Dotfiles gitleaks config"
+
+[allowlist]
+description = "Allowlisted files and patterns"
+
+# Example API keys in documentation and jj conflict files
+paths = ['''docs/.*\.md''']
+
+regexes = [
+  '''P34O5UIPDBCFHF36W4........''',
+  '''396e787044c95f128e7792d9e5ad523b........''',
+  '''e88cc05cf339dc5baa19d3c7ad26c43a........''',
+] # Old revoked tokens and 1Password system tokens (not actual secrets)
