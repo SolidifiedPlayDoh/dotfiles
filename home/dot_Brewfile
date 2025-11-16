@@ -1,10 +1,9 @@
-# frozen_string_literal: true
-
+# vim: ft=ruby
 brew "atuin" # shell history
 brew "automake" # build tool
 brew "awscli" # AWS CLI
-brew "bat" # cat replacement
 brew "bat-extras" # bat extensions
+brew "bat" # cat replacement
 brew "bison" # parser generator
 brew "ccusage"  # CPU monitor
 brew "chezmoi"  # dotfiles manager
@@ -16,11 +15,11 @@ brew "coreutils" # GNU coreutils
 brew "cosign" # signature tool
 brew "curl" # HTTP client
 brew "devcontainer" # devcontainer CLI
-brew "docker" # container runtime
 brew "docker-buildx" # Docker build
 brew "docker-compose" # container orchestration
-brew "docker-credential-helper" # Docker auth
 brew "docker-credential-helper-ecr" # ECR auth
+brew "docker-credential-helper" # Docker auth
+brew "docker" # container runtime
 brew "dotslash" # executable runner
 brew "duf" # disk usage
 brew "dust" # disk usage
@@ -32,10 +31,10 @@ brew "flock" # file locking
 brew "fzf" # fuzzy finder
 brew "gh" # GitHub CLI
 brew "ghostscript" # PostScript interpreter
-brew "ghq"  # Git repo manager
-brew "git"  # version control
+brew "ghq" # Git repo manager
 brew "git-delta" # git diff tool
 brew "git-lfs" # Git LFS
+brew "git" # version control
 brew "gitleaks" # secrets scanner
 brew "glow" # markdown viewer
 brew "gmp" # math library
@@ -92,10 +91,8 @@ brew "yamllint"  # YAML linter
 brew "yq" # YAML processor
 brew "zoxide" # cd replacement
 brew "zsh" # shell
-
-# Casks
-cask "1password" # password manager
 cask "1password-cli" # password CLI
+cask "1password" # password manager
 cask "amethyst" # window manager
 cask "betterdisplay" # display manager
 cask "colemak-dh" # keyboard layout
@@ -109,5 +106,3 @@ cask "obsidian" # notetaker
 cask "slack" # messaging
 cask "spotify" # music
 cask "stats" # system monitor
-
-# vim: ft=ruby
