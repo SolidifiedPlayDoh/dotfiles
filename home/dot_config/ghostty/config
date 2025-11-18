@@ -8,7 +8,7 @@
 
 # Font Configuration
 font-family = MonoLisa Nerd Font
-font-size = 10
+font-size = 13
 font-feature = +calt,+liga,+dlig,+zero,+ss02,+ss10,+ss11,+ss12,+ss13,+ss14,+ss15,+ss16
 font-synthetic-style = false
 

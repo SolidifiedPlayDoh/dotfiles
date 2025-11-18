@@ -7,19 +7,14 @@
 # https://github.com/indirect/dotfiles/blob/8948ae89f70f5c5bf37b35d97afe6430827ea974/private_dot_config/private_jj/config.toml
 
 [user]
-name = "Martin Emde"
-email = "me@martinemde.com"
+name = "SolidifiedPlayDoh"
+email = "cardiff.emde@gmail.com"
 
-[signing]
-backend = "ssh"
-behavior = "own"
-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBUOchTXDNe34jfmbmvuPuK4Vi8ClJkbmwkKrULyDh3U"
 
 [git]
 abandon-unreachable-commits = true
 colocate = true
 push-new-bookmarks = true
-sign-on-push = true
 subprocess = true
 write-change-id-header = true
 

@@ -24,7 +24,7 @@ if [[ -f "$HOME/.cargo/env" ]]; then
 fi
 
 # Editor configuration
-export EDITOR="nvim"
+export EDITOR="cursor --wait"
 
 # Pager configuration
 export PAGER="less"
