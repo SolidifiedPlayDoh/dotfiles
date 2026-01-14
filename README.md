@@ -21,7 +21,7 @@ This repository contains my personal dotfiles for setting up a productive develo
 ### Quick Start
 
 ```bash
-git clone https://github.com/ivy/dotfiles-redux.git && cd dotfiles-redux && ./install.sh
+git clone https://github.com/SolidifiedPlayDoh/dotfiles-redux.git && cd dotfiles-redux && ./install.sh
 ```
 
 ### Advanced Usage
@@ -66,4 +66,4 @@ For a complete list of options, run `./install.sh --help`.
 
 ## License
 
-This project is open source under the [ISC License](LICENSE.md), credited to Ivy Evans and Martin Emde.
+This project is open source under the [ISC License](LICENSE.md), credited to Ivy Evans, Solidifiedplaydoh, and Martin Emde.
